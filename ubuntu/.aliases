@@ -1,0 +1,9 @@
+#!/bin/bash
+
+alias c="clear"
+alias e="exit"
+alias psa="ps aux"
+alias psag="ps aux | grep"
+alias gdub='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+alias hosts="sudo vim /etc/hosts"
+alias tmux='tmux -2' # give -2 flag to tmux so it runs with 256 colors
