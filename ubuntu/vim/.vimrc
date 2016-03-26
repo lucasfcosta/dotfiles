@@ -29,7 +29,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 
 " syntastic
-" Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 
 " vim-clojure-highlight
 Plugin 'guns/vim-clojure-highlight'
@@ -40,11 +40,20 @@ Plugin 'Yggdroot/indentLine'
 " syntax highlight for JS (ES6)
 Plugin 'othree/yajs.vim'
 
+" JS Syntax/Indent related Plugin (required for JSX highlight)
+Plugin 'pangloss/vim-javascript'
+
+" syntax highlight for JSX
+Bundle 'mxw/vim-jsx'
+
 " .editorconfig
 Plugin 'editorconfig/editorconfig-vim'
 
 " emmet
 Plugin 'mattn/emmet-vim'
+
+" automatic insertion of matching pairs (for `(`, `[`, etc...)
+Plugin 'jiangmiao/auto-pairs'
 
 " surround
 Plugin 'tpope/vim-surround'
@@ -72,9 +81,9 @@ let g:airline#extensions#tabline#enabled=1
 set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h20
 
 " syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -90,6 +99,9 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 
 " vim-go
 let g:go_fmt_command = "goimports"
+
+" enable syntax highlight for JSX on .js files
+let g:jsx_ext_required = 0
 
 " vim thinks that json is javascript
 au BufRead,BufNewFile *.json set filetype=json
