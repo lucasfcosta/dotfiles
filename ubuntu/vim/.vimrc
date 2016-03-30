@@ -94,6 +94,9 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_go_checkers = [] " vim-go does that for me
 
+" enable emmet for JSX
+let g:user_emmet_jsx = 1
+
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " only show files that are not ignored by git
 
