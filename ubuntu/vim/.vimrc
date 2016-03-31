@@ -33,7 +33,10 @@ Plugin 'tpope/vim-fugitive'
 " vim-airline
 Plugin 'bling/vim-airline'
 
-" syntastic
+" vim-airline-themes
+Plugin 'vim-airline/vim-airline-themes'
+
+ " syntastic
 Plugin 'scrooloose/syntastic'
 
 " vim-clojure-highlight
