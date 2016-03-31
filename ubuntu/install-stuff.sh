@@ -2,6 +2,9 @@
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
+# enable adding ppas
+sudo apt-get install software-properties-common -y
+
 # add ppas
 sudo add-apt-repository ppa:webupd8team/unstable
 sudo add-apt-repository ppa:gnome-terminator
