@@ -24,6 +24,9 @@ Plugin 'fatih/vim-go'
 " colorschemes
 Plugin 'chriskempson/base16-vim'
 
+" MOAR COLORSCHEMES
+Plugin 'flazz/vim-colorschemes'
+
 " fugitive
 Plugin 'tpope/vim-fugitive'
 
