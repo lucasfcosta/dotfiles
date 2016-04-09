@@ -9,3 +9,5 @@ alias hosts="sudo vim /etc/hosts"
 alias tmux='tmux -2' # give -2 flag to tmux so it runs with 256 colors
 alias vimconfig='vim ~/.vimrc'
 alias zshconfig='vim ~/.zshrc'
+alias tmuxconfig='vim ~/.tmux.conf'
+alias reloadconfig='source ~/.zshrc'
