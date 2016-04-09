@@ -17,6 +17,8 @@ echo "Updating packages..."
 sudo apt-get update > /dev/null
 
 # Install stuff
+echo "Installing git..."
+sudo apt-get install -y git > /dev/null
 echo "Installing guake..."
 sudo apt-get install -y guake > /dev/null
 echo "Installing htop..."
@@ -25,10 +27,10 @@ echo "Installing curl..."
 sudo apt-get install -y curl > /dev/null
 echo "Installing zsh..."
 sudo apt-get install -y zsh > /dev/null
-echo "Installing git..."
-sudo apt-get install -y git > /dev/null
 echo "Installing vim..."
 sh $DIR/vim/install.sh
+echo "Installing tmux..."
+sh $DIR/tmux/install.sh
 echo "Installing nvm"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash > /dev/null
 echo "Installing rvm"
