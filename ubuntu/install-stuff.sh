@@ -40,5 +40,5 @@ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | 
 echo "Installing terminator"
 sh $DIR/terminator/install.sh
 echo "Installing powerline-fonts"
-git clone https://github.com/powerline/fonts
+git clone https://github.com/powerline/fonts | sh > /dev/null
 /bin/bash fonts/install.sh

@@ -2,8 +2,6 @@
 set -g base-index 1
 set -g pane-base-index 1
 
-set-option -g status-position top
-
 set-option -g repeat-time 0
 
 # Removes ESC delay
