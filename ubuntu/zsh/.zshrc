@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/home/lucasfcosta/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="yan"
+ZSH_THEME="bullet-train"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,7 +52,6 @@ ZSH_THEME="yan"
 plugins=(git node rails web-search)
 
 # User configuration
-
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -93,3 +92,40 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 case $- in *i*)
     [ -z "$TMUX" ] && exec tmux -2
 esac
+
+# Load aliases
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
+
+#############################
+#### BulletTrain Configs ####
+#############################
+
+## Show Time
+BULLETTRAIN_TIME_SHOW=false
+
+## Custom Message
+BULLETTRAIN_CUSTOM_MSG=false
+# BULLETTRAIN_CUSTOM_MSG='YEAH SCIENCE'
+
+## username@host
+BULLETTRAIN_CONTEXT_SHOW=true
+BULLETTRAIN_CONTEXT_FG=white
+BULLETTRAIN_CONTEXT_BG=yellow
+
+## username@host for SSH
+BULLETTRAIN_IS_SSH_CLIENT=true
+
+## Python's virtualenv
+BULLETTRAIN_VIRTUALENV_SHOW=true
+
+## NodeJS Version (NVM)
+BULLETTRAIN_NVM_SHOW=true
+
+## Ruby Version
+BULLETTRAIN_RUBY_SHOW=false
+
+## Git
+BULLETTRAIN_GIT_SHOW=true
+BULLETTRAIN_GIT_COLORIZE_DIRTY=false

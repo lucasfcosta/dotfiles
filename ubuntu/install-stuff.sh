@@ -36,5 +36,7 @@ curl -sSL https://get.rvm.io | bash -s stable --ruby
 echo "Installing oh-my-zsh"
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh > /dev/null
 echo "Installing terminator"
-sudo apt-get install -y terminator > /dev/null
-
+sh $DIR/terminator/install.sh
+echo "Installing powerline-fonts"
+git clone https://github.com/powerline/fonts
+/bin/bash fonts/install.sh
