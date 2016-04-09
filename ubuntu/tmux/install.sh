@@ -6,5 +6,5 @@ DIR="$( cd "$( dirname "$0" )" && pwd )"
 sudo apt-get install -y tmux > /dev/null
 
 # config tmux
-cp $DIR/.* ~/
+cp -R $DIR/.* ~/
 

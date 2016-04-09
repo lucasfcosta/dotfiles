@@ -49,7 +49,7 @@ ZSH_THEME="yan"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, node, rails, web-search)
+plugins=(git node rails web-search)
 
 # User configuration
 
@@ -88,3 +88,8 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM
+
+# Open TMUX as default
+case $- in *i*)
+    [ -z "$TMUX" ] && exec tmux -2
+esac
