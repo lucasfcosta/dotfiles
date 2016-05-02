@@ -27,9 +27,6 @@ cp $DIR/terminator/config .config/terminator/config
 echo "Source .zshrc"
 source ~/.zshrc
 
-# change folder user zsh
-sed -i s/"user-dir"/"$USER"/g ~/.zshrc
-
 # installing vim plugins
 echo "Installing vIM plugins..."
 vim +PluginInstall +qall
