@@ -1,6 +1,7 @@
 autocmd VimEnter * language en_US.utf8
 set encoding=utf-8  " The encoding displayed.$
 set fileencoding=utf-8  " The encoding written to file.$
+syntax on " Enable syntax highlight
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
