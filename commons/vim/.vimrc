@@ -1,4 +1,3 @@
-autocmd VimEnter * language en_US.utf8
 set encoding=utf-8  " The encoding displayed.$
 set fileencoding=utf-8  " The encoding written to file.$
 syntax on " Enable syntax highlight
@@ -166,7 +165,7 @@ set t_Co=256
 set number
 
 " access system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " toggle paste mode with F2
 set pastetoggle=<F2>
@@ -190,3 +189,6 @@ hi Normal ctermbg=none
 
 " background and theme
 set background=dark
+
+" make backspace work like most other apps
+set backspace=2 

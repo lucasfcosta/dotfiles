@@ -28,17 +28,17 @@ sudo apt-get install -y curl > /dev/null
 echo "Installing zsh..."
 sudo apt-get install -y zsh > /dev/null
 echo "Installing vim..."
-sh $DIR/vim/install.sh
+sudo apt-get install -y vim > /dev/null
 echo "Installing tmux..."
-sh $DIR/tmux/install.sh
+sudo apt-get install -y tmux > /dev/null
 echo "Installing nvm"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash > /dev/null
 echo "Installing rvm"
-curl -sSL https://get.rvm.io | bash -s stable --ruby
+curl -sSL https://get.rvm.io | bash -s stable --ruby > /dev/null
 echo "Installing oh-my-zsh"
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh > /dev/null
 echo "Installing terminator"
-sh $DIR/terminator/install.sh
+sudo apt-get install -y terminator > /dev/null
 echo "Installing powerline-fonts"
 git clone https://github.com/powerline/fonts | sh > /dev/null
-/bin/bash fonts/install.sh
+/bin/bash fonts/install.sh > /dev/null
