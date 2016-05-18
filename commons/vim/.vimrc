@@ -52,7 +52,8 @@ Plugin 'othree/yajs.vim'
 Plugin 'pangloss/vim-javascript'
 
 " syntax highlight for JSX
-Bundle 'mxw/vim-jsx'
+" Disabled because it messes up comments in normal JS files
+" Bundle 'mxw/vim-jsx'
 
 " .editorconfig
 Plugin 'editorconfig/editorconfig-vim'
@@ -100,16 +101,12 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_go_checkers = [] " vim-go does that for me
 
 " enable emmet for JSX
 let g:user_emmet_jsx = 1
 
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " only show files that are not ignored by git
-
-" vim-go
-let g:go_fmt_command = "goimports"
 
 " enable syntax highlight for JSX on .js files
 let g:jsx_ext_required = 0
