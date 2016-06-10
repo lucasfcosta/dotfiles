@@ -67,11 +67,17 @@ Plugin 'jiangmiao/auto-pairs'
 " surround
 Plugin 'tpope/vim-surround'
 
+" angularJS bindings
+Plugin 'burnettk/vim-angular'
+
+" flow types
+Plugin 'facebook/vim-flow'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 " Put your non-Plugin stuff after this line
 
 " Open NERDTree automatically when vim starts up
@@ -119,10 +125,10 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 
 " identLine
 let g:indentLine_enabled = 1
-" let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_color_term = 239
 let g:indentLine_char = '¦'
-" let g:indentLine_leadingSpaceChar = '⋅'
+let g:indentLine_leadingSpaceChar = '⋅'
 
 " molokai
 colorscheme molokai
@@ -189,3 +195,9 @@ set background=dark
 
 " make backspace work like most other apps
 set backspace=2 
+
+" stop comments auto indentation
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" flow type checking on save
+let g:flow#enable = 1
