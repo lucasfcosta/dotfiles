@@ -91,7 +91,9 @@ let g:NERDTreeQuitOnOpen=1
 
 " vim-airline
 let g:airline_powerline_fonts=1
-let g:airline_theme='molokai'
+" Swap the two lines below to change from/to monokai/bubblegum
+" let g:airline_theme='molokai'
+let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#enabled=1
 set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h20
 
@@ -131,8 +133,12 @@ let g:indentLine_char = '¦'
 let g:indentLine_leadingSpaceChar = '⋅'
 
 " molokai
-colorscheme molokai
-let g:molokai_original = 1
+" colorscheme molokai
+" let g:molokai_original = 1
+" let g:rehash256 = 1
+
+" bubblegum theme
+colorscheme bubblegum
 let g:rehash256 = 1
 
 " dont use arrowkeys
