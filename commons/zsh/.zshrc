@@ -89,9 +89,10 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM
 
 # Open TMUX as default
-case $- in *i*)
-    [ -z "$TMUX" ] && exec tmux -2
-esac
+# NO PLS
+# case $- in *i*)
+#     [ -z "$TMUX" ] && exec tmux -2
+# esac
 
 # Load aliases
 if [ -f ~/.aliases ]; then
