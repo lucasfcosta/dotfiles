@@ -73,6 +73,12 @@ Plugin 'burnettk/vim-angular'
 " flow types
 Plugin 'facebook/vim-flow'
 
+" markdown preview
+Plugin 'JamshedVesuna/vim-markdown-preview'
+
+" coffeescript highlight
+Plugin 'kchmck/vim-coffee-script'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
