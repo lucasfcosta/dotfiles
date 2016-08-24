@@ -79,6 +79,15 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 " coffeescript highlight
 Plugin 'kchmck/vim-coffee-script'
 
+" C general
+Plugin 'c.vim'
+
+" Clojure REPL support
+Plugin 'tpope/vim-fireplace'
+
+" Clojure Syntax/Indentation
+Plugin 'VimClojure'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
