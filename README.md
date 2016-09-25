@@ -14,7 +14,7 @@ My personal dotfiles.
 1. Clone this repo:
     
     ```
-    $ git clone https://github.com/lucasfcosta/dotfiles
+    $ git clone https://github.com/lucasfcosta/dotfiles --recursive
     ```
 
 2. Give yourself permissions to run `./install.sh`
