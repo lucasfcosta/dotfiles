@@ -39,9 +39,6 @@ Plugin 'vim-airline/vim-airline-themes'
  " syntastic
 Plugin 'scrooloose/syntastic'
 
-" vim-clojure-highlight
-Plugin 'guns/vim-clojure-highlight'
-
 " identLine
 Plugin 'Yggdroot/indentLine'
 
@@ -67,26 +64,11 @@ Plugin 'jiangmiao/auto-pairs'
 " surround
 Plugin 'tpope/vim-surround'
 
-" angularJS bindings
-Plugin 'burnettk/vim-angular'
-
-" flow types
-Plugin 'facebook/vim-flow'
-
-" markdown preview
-Plugin 'JamshedVesuna/vim-markdown-preview'
-
 " coffeescript highlight
 Plugin 'kchmck/vim-coffee-script'
 
 " C general
 Plugin 'c.vim'
-
-" Clojure REPL support
-Plugin 'tpope/vim-fireplace'
-
-" Clojure Syntax/Indentation
-Plugin 'VimClojure'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -217,6 +199,3 @@ set backspace=2
 
 " stop comments auto indentation
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" flow type checking on save
-let g:flow#enable = 1
