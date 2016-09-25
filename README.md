@@ -3,6 +3,12 @@
 My personal dotfiles.
 
 
+# Images
+
+![My vIM](/vim-screen.png)
+
+![My Terminal Screen](/terminal-screen.png)
+
 # Installing
 
 1. Clone this repo:
