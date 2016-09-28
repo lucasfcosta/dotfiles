@@ -9,6 +9,13 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins List
+"""""""""""""""""""""""""""""""""""""""""""""""
+
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
@@ -77,6 +84,13 @@ filetype plugin indent on    " required
 " filetype plugin on
 " Put your non-Plugin stuff after this line
 
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Related Configs
+"""""""""""""""""""""""""""""""""""""""""""""""
+
 " Open NERDTree automatically when vim starts up
 " autocmd vimenter * NERDTree
 " NERDTree
@@ -114,12 +128,6 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " enable syntax highlight for JSX on .js files
 let g:jsx_ext_required = 0
 
-" vim thinks that json is javascript
-au BufRead,BufNewFile *.json set filetype=json
-
-" display handlebars templates as html
-au BufNewFile,BufRead *.handlebars set filetype=html
-
 " identLine
 let g:indentLine_enabled = 1
 let g:indentLine_leadingSpaceEnabled = 1
@@ -127,14 +135,59 @@ let g:indentLine_color_term = 239
 let g:indentLine_char = '¦'
 let g:indentLine_leadingSpaceChar = '⋅'
 
-" molokai
-" colorscheme molokai
-" let g:molokai_original = 1
-" let g:rehash256 = 1
 
-" bubblegum theme
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype Related Configs
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim thinks that json is javascript
+au BufRead,BufNewFile *.json set filetype=json
+
+" display handlebars templates as html
+au BufNewFile,BufRead *.handlebars set filetype=html
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Visual Related Configs
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+" molokai
 colorscheme bubblegum
+let g:molokai_original = 1
 let g:rehash256 = 1
+
+" maintain terminal background
+hi Normal ctermbg=none
+
+" background and theme
+set background=dark
+
+" long lines as just one line (have to scroll horizontally)
+set nowrap
+
+" 256 colors
+set t_Co=256
+
+" line numbers
+set number
+
+" show the status line all the time
+set laststatus=2
+
+" toggle invisible characters
+set invlist
+set list
+set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
+hi NonText ctermfg=7 guifg=darkgray
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Keymappings
+"""""""""""""""""""""""""""""""""""""""""""""""
 
 " dont use arrowkeys
 noremap <Up> <NOP>
@@ -153,46 +206,15 @@ vnoremap <C-y> +y
 nnoremap <C-p> +P
 vnoremap <C-p> +P
 
-" 4 spaces
-filetype plugin indent on
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-" long lines as just one line (have to scroll horizontally)
-set nowrap
-
-" 256 colors
-set t_Co=256
-
-" line numbers
-set number
-
 " access system clipboard
 set clipboard=unnamed
 
 " toggle paste mode with F2
 set pastetoggle=<F2>
 
-" show the status line all the time
-set laststatus=2
-
-" toggle invisible characters
-set invlist
-set list
-set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
-hi NonText ctermfg=7 guifg=darkgray
-
 " swapfiles location
 set backupdir=/tmp//
 set directory=/tmp//
-
-" maintain terminal background
-hi Normal ctermbg=none
-
-" background and theme
-set background=dark
 
 " make backspace work like most other apps
 set backspace=2 
