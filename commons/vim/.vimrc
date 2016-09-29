@@ -2,8 +2,8 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""
 
-set encoding=utf-8  " The encoding displayed.$
-set fileencoding=utf-8  " The encoding written to file.$
+set encoding=utf-8  " The encoding displayed.
+set fileencoding=utf-8  " The encoding written to file.
 syntax on " Enable syntax highlight
 
 " Set to auto read when a file is changed from the outside
