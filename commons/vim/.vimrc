@@ -166,6 +166,7 @@ set nowrap
 set t_Co=256
 
 " line numbers
+set relativenumber
 set number
 
 " show the status line all the time
