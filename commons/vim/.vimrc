@@ -29,9 +29,6 @@ Plugin 'scrooloose/nerdtree'
 " ctrlp.vim
 Plugin 'kien/ctrlp.vim'
 
-" Go vim
-Plugin 'fatih/vim-go'
-
 " colorschemes
 Plugin 'chriskempson/base16-vim'
 
@@ -74,12 +71,6 @@ Plugin 'jiangmiao/auto-pairs'
 
 " surround
 Plugin 'tpope/vim-surround'
-
-" coffeescript highlight
-Plugin 'kchmck/vim-coffee-script'
-
-" C general
-Plugin 'c.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -132,7 +123,7 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " enable syntax highlight for JSX on .js files
 let g:jsx_ext_required = 0
 
-" identLine
+" indentLine
 let g:indentLine_enabled = 1
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_color_term = 239
