@@ -81,7 +81,6 @@ filetype plugin indent on    " required
 
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""

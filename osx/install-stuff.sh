@@ -29,6 +29,7 @@ brew install vim > /dev/null
 
 echo "Installing tmux..."
 brew install tmux > /dev/null
+brew install reattach-to-user-namespace
 
 echo "Installing nvm..."
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash > /dev/null
