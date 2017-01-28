@@ -44,9 +44,6 @@ Plugin 'bling/vim-airline'
 " vim-airline-themes
 Plugin 'vim-airline/vim-airline-themes'
 
- " syntastic
-Plugin 'scrooloose/syntastic'
-
 " identLine
 Plugin 'Yggdroot/indentLine'
 
@@ -105,19 +102,6 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#enabled=1
 set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h20
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_json_checkers = ['jsonlint']
 
 " enable emmet for JSX
 let g:user_emmet_jsx = 1
