@@ -94,6 +94,14 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 #     [ -z "$TMUX" ] && exec tmux -2
 # esac
 
+# Go Development
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+test -d "${GOPATH}" || mkdir "${GOPATH}"
+test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
+
 # Load aliases
 if [ -f ~/.aliases ]; then
     . ~/.aliases
