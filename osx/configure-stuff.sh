@@ -8,7 +8,7 @@ echo "(You may need to reboot or relogin for this change to be applied)"
 chsh -s $(which zsh) $(whoami)
 
 echo "Installing bullet-train theme..."
-wget --force-directories http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -O $ZSH/custom/themes/bullet-train.zsh-theme > /dev/null
+wget --force-directories http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -O $ZSH/themes/bullet-train.zsh-theme > /dev/null
 
 # install zshrc
 echo "Copying .zshrc file to $(whoami)'s home folder..."
