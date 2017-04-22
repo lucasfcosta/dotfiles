@@ -12,6 +12,8 @@ syntax on " Enable syntax highlight
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+
+
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins List
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -34,9 +36,6 @@ Plugin 'chriskempson/base16-vim'
 
 " MOAR COLORSCHEMES
 Plugin 'flazz/vim-colorschemes'
-
-" identLine
-Plugin 'Yggdroot/indentLine'
 
 " syntax highlight for JS (ES6)
 Plugin 'othree/yajs.vim'
@@ -89,13 +88,6 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 
 " enable syntax highlight for JSX on .js files
 let g:jsx_ext_required = 0
-
-" indentLine
-let g:indentLine_enabled = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_color_term = 239
-let g:indentLine_char = '¦'
-let g:indentLine_leadingSpaceChar = '⋅'
 
 
 
