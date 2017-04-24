@@ -114,7 +114,7 @@ colorscheme PaperColor
 hi Normal ctermbg=none
 
 " background and theme
-set background=light
+set background=dark
 
 " long lines as just one line (have to scroll horizontally)
 set nowrap
