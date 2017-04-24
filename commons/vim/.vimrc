@@ -97,6 +97,7 @@ let g:jsx_ext_required = 0
 
 " vim thinks that json is javascript
 au BufRead,BufNewFile *.json set filetype=json
+let g:vim_json_syntax_conceal = 0
 
 " display handlebars templates as html
 au BufNewFile,BufRead *.handlebars set filetype=html
@@ -107,16 +108,13 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 " => Visual Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
-" molokai
-colorscheme bubblegum
-let g:molokai_original = 1
-let g:rehash256 = 1
+colorscheme PaperColor
 
 " maintain terminal background
 hi Normal ctermbg=none
 
 " background and theme
-set background=dark
+set background=light
 
 " long lines as just one line (have to scroll horizontally)
 set nowrap
@@ -135,6 +133,7 @@ set laststatus=2
 set invlist
 set list
 set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+
 highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
 hi NonText ctermfg=7 guifg=darkgray
 
@@ -176,6 +175,14 @@ set backspace=2
 
 " stop comments auto indentation
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => StatusLine
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 
 
 
