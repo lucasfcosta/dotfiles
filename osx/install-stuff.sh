@@ -45,8 +45,3 @@ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | 
 
 echo "Installing Go..."
 brew install go > /dev/null
-
-echo "Installing nerd-fonts... (This may take a while)"
-git clone https://github.com/ryanoasis/nerd-fonts | bash > /dev/null
-bash -c "cd nerd-fonts && install.sh" > /dev/null
-echo "Nerd fonts installed, please set your default font on iTerm"
