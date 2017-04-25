@@ -108,7 +108,7 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 " => Visual Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
-colorscheme PaperColor
+colorscheme gruvbox
 
 " maintain terminal background
 hi Normal ctermbg=none
@@ -136,6 +136,13 @@ set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
 highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
 hi NonText ctermfg=7 guifg=darkgray
+
+" Remove fill of splits
+set fillchars+=vert:\ 
+
+" Make split separator transparent
+hi VertSplit ctermbg=NONE guibg=NONE
+
 
 
 
@@ -176,13 +183,19 @@ set backspace=2
 " stop comments auto indentation
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" transparente StatusLine
+hi StatusLineNC ctermfg=235 ctermbg=237
+hi StatusLine ctermfg=235 ctermbg=245
+hi EndOfBuffer ctermfg=237 ctermbg=235
+hi NonText ctermfg=237 ctermbg=none
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => StatusLine
 """""""""""""""""""""""""""""""""""""""""""""""
 
-set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
+set statusline=%=%f\ %m\ (%l\,\ %L\)\ %P\ 
 
 
 
