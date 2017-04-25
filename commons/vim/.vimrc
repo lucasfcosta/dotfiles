@@ -132,7 +132,7 @@ set laststatus=2
 " toggle invisible characters
 set invlist
 set list
-set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=trail:⋅
 
 highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
 hi NonText ctermfg=7 guifg=darkgray
