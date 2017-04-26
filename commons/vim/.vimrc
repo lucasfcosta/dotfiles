@@ -110,9 +110,6 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 
 colorscheme gruvbox
 
-" maintain terminal background
-hi Normal ctermbg=none
-
 " background and theme
 set background=dark
 
