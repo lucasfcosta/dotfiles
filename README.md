@@ -5,9 +5,7 @@ My personal dotfiles.
 
 # Images
 
-![My vIM](/vim-screen.png)
-
-![My Terminal Screen](/terminal-screen.png)
+![My Terminal](/terminal-screen.png)
 
 # Installing
 
@@ -28,3 +26,8 @@ My personal dotfiles.
     ```
     $ sudo ./install.sh
     ```
+
+4. Import gruvbox colors into iTerm
+
+
+## [Vim Tips](http://localhost:4000/2017/01/23/Quick-vIM-Tips-That-Will-Save-Your-Life.html)
