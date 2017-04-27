@@ -90,7 +90,7 @@ set -g status-position bottom
 set -g status-bg black
 set -g status-fg colour137
 set -g status-attr dim
-set -g status-left '#[fg=white,bold] #S  '
+set -g status-left '#[fg=white,bold] #S  ▶  '
 set -g status-right '#[fg=white,bold,bg=black]   %d/%m/%y   %H:%M:%S   #{battery_icon} #{battery_percentage}'
 set -g status-right-length 50
 set -g status-left-length 20
