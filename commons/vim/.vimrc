@@ -180,19 +180,15 @@ set backspace=2
 " stop comments auto indentation
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" transparente StatusLine
-hi StatusLineNC ctermfg=235 ctermbg=237
-hi StatusLine ctermfg=235 ctermbg=245
 hi EndOfBuffer ctermfg=237 ctermbg=235
 hi NonText ctermfg=237 ctermbg=none
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => StatusLine
 """""""""""""""""""""""""""""""""""""""""""""""
 
-set statusline=%=%f\ %m\ (%l\,\ %L\)\ %P\ 
+set statusline=%=%f\ %m\ (%l\,\ %L\)\ (%c)\ %P\ 
 
 
 
