@@ -27,6 +27,9 @@ brew install zsh > /dev/null
 echo "Installing vim..."
 brew install vim > /dev/null
 
+echo "Installing nvim..."
+brew install neovim/neovim/neovim
+
 echo "Installing tmux..."
 brew install tmux > /dev/null
 brew install reattach-to-user-namespace
