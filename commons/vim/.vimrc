@@ -106,6 +106,8 @@ let g:vim_json_syntax_conceal = 0
 " display handlebars templates as html
 au BufNewFile,BufRead *.handlebars set filetype=html
 
+" enable gotofile for node requires without explicit extensions
+set suffixesadd+=.js
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
