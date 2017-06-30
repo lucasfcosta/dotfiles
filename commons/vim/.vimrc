@@ -58,6 +58,9 @@ Plugin 'tpope/vim-surround'
 " vim-go
 Plugin 'fatih/vim-go'
 
+" syntastic
+Plugin 'vim-syntastic/syntastic'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -89,7 +92,8 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " enable syntax highlight for JSX on .js files
 let g:jsx_ext_required = 0
 
-
+" syntastic eslint checks
+let g:syntastic_javascript_checkers=['eslint']
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype Related Configs
