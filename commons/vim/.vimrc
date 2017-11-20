@@ -61,6 +61,12 @@ Plugin 'fatih/vim-go'
 " syntastic
 Plugin 'vim-syntastic/syntastic'
 
+" haskell-vim
+Plugin 'neovimhaskell/haskell-vim'
+
+" solidy highlight
+Plugin 'tomlion/vim-solidity'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -109,6 +115,11 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 " enable gotofile for node requires without explicit extensions
 set suffixesadd+=.js
 
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+let g:go_fmt_fail_silently = 1
+let GOPATH="${HOME}/.go"
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Visual Related Configs
@@ -135,7 +146,7 @@ set laststatus=2
 " toggle invisible characters
 set invlist
 set list
-set listchars=trail:⋅
+set listchars=tab:\ \ ,trail:⋅
 
 highlight SpecialKey ctermbg=none guifg=darkgray" make the highlighting of tabs less annoying
 hi NonText ctermfg=7 guifg=darkgray
