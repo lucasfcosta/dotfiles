@@ -67,6 +67,11 @@ Plugin 'neovimhaskell/haskell-vim'
 " solidy highlight
 Plugin 'tomlion/vim-solidity'
 
+" prettier
+Plugin 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -101,6 +106,12 @@ let g:jsx_ext_required = 0
 " syntastic eslint checks
 let g:syntastic_javascript_checkers=['eslint']
 
+" Prettier formatting on save
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -120,6 +131,8 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 1
 let GOPATH="${HOME}/.go"
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Visual Related Configs
