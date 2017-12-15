@@ -67,10 +67,12 @@ Plugin 'neovimhaskell/haskell-vim'
 " solidy highlight
 Plugin 'tomlion/vim-solidity'
 
-" prettier
-Plugin 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+" typescript
+Plugin 'leafgarland/typescript-vim'
+
+" neomake
+Plugin 'neomake/neomake'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -84,6 +86,9 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
+
+" Neomake async hooks
+call neomake#configure#automake('w')
 
 " Open NERDTree automatically when vim starts up
 " autocmd vimenter * NERDTree
@@ -104,12 +109,7 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 let g:jsx_ext_required = 0
 
 " syntastic eslint checks
-let g:syntastic_javascript_checkers=['eslint']
-
-" Prettier formatting on save
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
-
+let g:neomake_javascript_enabled_makers=['eslint']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
