@@ -154,6 +154,9 @@ defaults write com.apple.dock show-process-indicators -bool true
 # (i.e. use the old Exposé behavior instead)
 defaults write com.apple.dock expose-group-by-app -bool false
 
+# Speedup Exposé animation on Mission Control
+defaults write com.apple.dock expose-animation-duration -float 0.15
+
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0.0
 
@@ -162,6 +165,37 @@ defaults write com.apple.dock autohide-time-modifier -float 0.75
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
+
+###############################################################################
+# Menu-bar                                                                    #
+###############################################################################
+
+# Thanks, internet
+# https://www.jamf.com/jamf-nation/discussions/10576/menu-bar-customization
+
+PreferredMenuExtras=(
+"/Applications/Utilities/Keychain Access.app/Contents/Resources/Keychain.menu"
+"/System/Library/CoreServices/Menu Extras/AirPort.menu"
+"/System/Library/CoreServices/Menu Extras/Battery.menu"
+"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
+"/System/Library/CoreServices/Menu Extras/Clock.menu"
+"/System/Library/CoreServices/Menu Extras/Eject.menu"
+)
+
+currentUser=$( ls -l /dev/console | awk '{print $3}' )
+
+userHome=$( dscl . read /Users/$currentUser NFSHomeDirectory | awk '{print $NF}' )
+
+MenuExtras=$( defaults read "$userHome/Library/Preferences/com.apple.systemuiserver.plist" menuExtras | awk -F'"' '{print $2}' )
+
+for menuExtra in "${PreferredMenuExtras[@]}"; do
+    menuShortName=$( echo "${menuExtra}" | awk -F'/' '{print $NF}' )
+    if [[ !$( echo "${MenuExtras}" | grep "${menuExtra}" ) ]]; then
+        open "${menuExtra}"
+    fi
+done
+
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 ###############################################################################
 # Safari & WebKit                                                             #
