@@ -14,8 +14,8 @@ syntax on " Enable syntax highlight
 
 call plug#begin()
 
-" molokai colorscheme
-Plug 'tomasr/molokai'
+" nord-vim colorscheme
+Plug 'arcticicestudio/nord-vim'
 
 " neomake
 Plug 'neomake/neomake'
@@ -76,10 +76,8 @@ let g:javascript_plugin_jsdoc = 1
 " 256 colors
 set t_Co=256
 
-" set molokai as the default colorscheme
-colorscheme molokai
-let g:molokai_original = 1
-let g:rehash256 = 1
+" set colorscheme
+colorscheme nord
 
 " long lines as just one line (have to scroll horizontally)
 set nowrap
@@ -167,5 +165,3 @@ set si
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
-
-
