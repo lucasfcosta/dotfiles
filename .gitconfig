@@ -1,0 +1,61 @@
+[user]
+    name = Lucas Fernandes da Costa
+    email = lucas@lucasfcosta.com
+    username = lucasfcosta
+
+[core]
+    editor = nvim
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile = ~/.gitignore
+
+[credential]
+    helper = store
+
+[merge]
+    tool = vimdiff
+[mergetool]
+    prompt = true
+[mergetool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[pull]
+    rebase = true
+
+[alias]
+    a = add --all
+    ap = add . -p
+    #############
+    b = branch
+    bd = branch -d
+    bdd = branch -D
+    br = branch -r
+    #############
+    cm = commit -m
+    ca = commit --amend
+    #############
+    cp = cherry-pick
+    cpa = cherry-pick --abort
+    cpc = cherry-pick --continue
+    #############
+    m = merge
+    ma = merge --abort
+    mc = merge --continue
+    ms = merge --skip
+    #############
+    co = checkout
+    cob = checkout -b
+    #############
+    pr = prune -v
+    #############
+    ps = push
+    psf = push -f
+    psu = push -u
+    pst = push --tags
+    #############
+    rb = rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbi = rebase --interactive
+    rbs = rebase --skip
+    #############
+    aliases = !git config -l | grep alias | cut -c 7-
