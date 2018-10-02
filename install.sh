@@ -13,6 +13,7 @@ function doIt() {
 		--exclude "install.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
+		--exclude "terminal-demo.png" \
 		-avh --no-perms . ~;
 	source ~/.bash_profile;
 }
