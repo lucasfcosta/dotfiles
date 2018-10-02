@@ -54,3 +54,11 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Use nvim as the default editor
+export EDITOR=nvim
