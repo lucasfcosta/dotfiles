@@ -51,8 +51,11 @@ Plug 'editorconfig/editorconfig-vim'
 " emmet
 Plug 'mattn/emmet-vim'
 
-" OmniCompletion
+" semantic-based completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+" linting engine
+Plug 'w0rp/ale'
 
 
 call plug#end()
@@ -123,10 +126,28 @@ let g:ycm_filepath_blacklist = {
       \ 'xml': 1,
       \}
 
+" fix files on save
+let g:ale_fix_on_save = 1
+
+" lint after 1000ms after changes are made both on insert mode and normal mode
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 1000
+
+" use emojis for errors and warnings
+let g:ale_sign_error = '✗\ '
+let g:ale_sign_warning = '⚠\ '
+
+" fixer configurations
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+
 " make FZF respect gitignore if `ag` is installed
 if (executable('ag'))
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 endif
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Visual Related Configs
@@ -220,7 +241,7 @@ set tabstop=4
 set ai
 
 " Smart indent
-" Automatically inserts one extra level of indentation in some cases, and works for C-like files 
+" Automatically inserts one extra level of indentation in some cases, and works for C-like files
 set si
 
 
@@ -229,6 +250,6 @@ set si
 " => Utils (a.k.a. mess I can't categorize)
 """""""""""""""""""""""""""""""""""""""""""""""
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
