@@ -48,9 +48,6 @@ Plug 'editorconfig/editorconfig-vim'
 " emmet
 Plug 'mattn/emmet-vim'
 
-" syntastic
-Plug 'vim-syntastic/syntastic'
-
 " OmniCompletion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
@@ -75,11 +72,20 @@ map <silent> <C-n> :NERDTreeToggle<CR>
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 
-" syntastic eslint checks
-let g:neomake_javascript_enabled_makers=['eslint']" 
-
 " enable highlight for JSDocs
 let g:javascript_plugin_jsdoc = 1
+
+" disable auto_triggering ycm suggestions pane and instead
+" use semantic completion only on Ctrl+n
+let ycm_trigger_key = '<C-n>'
+let g:ycm_auto_trigger = 0
+let g:ycm_key_invoke_completion = ycm_trigger_key
+
+" this is some arcane magic to allow cycling through the YCM options
+" with the same key that opened it.
+" See http://vim.wikia.com/wiki/Improve_completion_popup_menu for more info.
+let g:ycm_key_list_select_completion = ['<TAB>', '<C-j>']
+inoremap <expr> ycm_trigger_key pumvisible() ? "<C-j>" : ycm_trigger_key;
 
 " show autocomplete suggestions only when typing more than 2 characters
 let g:ycm_min_num_of_chars_for_completion = 2
@@ -183,6 +189,11 @@ set directory=/tmp//
 
 " map fzf to ctrl+p
 nnoremap <C-P> :Files<CR>
+
+" YouCompleteMeMappings
+nnoremap ,dl    :YcmCompleter GoToDeclaration<CR>
+nnoremap ,df    :YcmCompleter GoToDefinition<CR>
+nnoremap ,#     :YcmCompleter GoToReferences<CR>
 
 
 
