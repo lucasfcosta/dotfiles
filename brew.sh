@@ -27,11 +27,21 @@ brew install gnu-sed --with-default-names
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
 
+# This is needed for python support on Neovim for YouCompleteMe
+# Please see:
+# * https://github.com/neovim/neovim/issues/1315
+# * https://stackoverflow.com/questions/17271319/how-do-i-install-pip-on-macos-or-os-x
+brew install python3
+brew unlink python3
+brew link python3
+pip3 install --user --upgrade neovim
+
 # Change the user's life forever
 # God bless the best text editor on earth
 brew install vim --with-override-system-vi
 brew install neovim --with-override-system-vi
-nvim +PlugInstall +qall
+nvim +silent +PlugInstall +qall
+python3 ~/.config/nvim/plugged/YouCompleteMe/install.py
 
 # vim's best friend
 brew install tmux

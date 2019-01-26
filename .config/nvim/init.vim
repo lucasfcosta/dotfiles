@@ -23,6 +23,15 @@ Plug 'neomake/neomake'
 " JavaScript Highlight & Improved Indentation
 Plug 'pangloss/vim-javascript'
 
+" Typescript Syntax Highlight
+Plug 'leafgarland/typescript-vim'
+
+" Async execution library needed by tsuquyomi
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+" A client to TSSServer so that we can get autocompletion
+Plug 'Quramy/tsuquyomi'
+
 " rust support
 Plug 'rust-lang/rust.vim'
 
@@ -40,6 +49,10 @@ Plug 'mattn/emmet-vim'
 
 " syntastic
 Plug 'vim-syntastic/syntastic'
+
+" OmniCompletion
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
 
 call plug#end()
 
@@ -102,6 +115,39 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+
+" show autocomplete suggestions only when typing more than 2 characters
+let g:ycm_min_num_of_chars_for_completion = 2
+
+" show at most 20 completion candidates at a time (more than this would be
+" ridiculous, you'd press TAB so many times it would be better to simply type
+" the entire thing lol)
+" this applies only to the semantic-based engine
+let g:ycm_max_num_candidates = 20
+
+" this is the same as above, but only for the identifier-based engine
+let g:ycm_max_num_identifier_candidates = 10
+
+" blacklist of filetypes in which autocomplete should be disabled
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'qf': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1
+      \}
+
+" blacklist of filepaths in which autocomplete should be disabled
+let g:ycm_filepath_blacklist = {
+      \ 'html': 1,
+      \ 'jsx': 1,
+      \ 'xml': 1,
+      \}
 
 
 
