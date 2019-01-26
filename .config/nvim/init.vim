@@ -23,6 +23,9 @@ Plug 'neomake/neomake'
 " JavaScript Highlight & Improved Indentation
 Plug 'pangloss/vim-javascript'
 
+" rust support
+Plug 'rust-lang/rust.vim'
+
 " NERDTree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
