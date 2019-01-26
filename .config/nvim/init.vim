@@ -38,8 +38,9 @@ Plug 'rust-lang/rust.vim'
 " NERDTree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" ctrlp.vim
-Plug 'kien/ctrlp.vim'
+" Async FuzzyFind
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " .editorconfig
 Plug 'editorconfig/editorconfig-vim'
@@ -74,47 +75,11 @@ map <silent> <C-n> :NERDTreeToggle<CR>
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 
-" ctrlp
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " only show files that are not ignored by git
-
 " syntastic eslint checks
 let g:neomake_javascript_enabled_makers=['eslint']" 
 
 " enable highlight for JSDocs
 let g:javascript_plugin_jsdoc = 1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""
-" => Visual Related Configs
-"""""""""""""""""""""""""""""""""""""""""""""""
-
-" 256 colors
-set t_Co=256
-
-" set colorscheme
-colorscheme nord
-
-" long lines as just one line (have to scroll horizontally)
-set nowrap
-
-" line numbers
-set relativenumber
-set number
-
-" show the status line all the time
-set laststatus=2
-
-" toggle invisible characters
-set invlist
-set list
-set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-
-" disable scrollbars (real hackers don't use scrollbars)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
 
 " show autocomplete suggestions only when typing more than 2 characters
 let g:ycm_min_num_of_chars_for_completion = 2
@@ -149,6 +114,42 @@ let g:ycm_filepath_blacklist = {
       \ 'xml': 1,
       \}
 
+" make FZF respect gitignore if `ag` is installed
+if (executable('ag'))
+    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Visual Related Configs
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+" 256 colors
+set t_Co=256
+
+" set colorscheme
+colorscheme nord
+
+" long lines as just one line (have to scroll horizontally)
+set nowrap
+
+" line numbers
+set relativenumber
+set number
+
+" show the status line all the time
+set laststatus=2
+
+" toggle invisible characters
+set invlist
+set list
+set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+
+" disable scrollbars (real hackers don't use scrollbars)
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -180,6 +181,9 @@ set clipboard=unnamed
 set backupdir=/tmp//
 set directory=/tmp//
 
+" map fzf to ctrl+p
+nnoremap <C-P> :Files<CR>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -199,7 +203,7 @@ set tabstop=4
 
 " Auto indent
 " Copy the indentation from the previous line when starting a new line
-set ai 
+set ai
 
 " Smart indent
 " Automatically inserts one extra level of indentation in some cases, and works for C-like files 
