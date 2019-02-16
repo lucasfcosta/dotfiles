@@ -15,10 +15,14 @@ The terminal programs I use can be installed through [`brew`](https://brew.sh) b
 $ . ./dotfiles/brew.sh
 ```
 
+I also had to make a `misc-installs.sh` script to install other necessary pieces of software which I could not install using `brew`. This includes [the `zsh-spaceship` prompt](https://github.com/denysdovhan/spaceship-prompt).
+
+:warning: **I recommend you to run this script before running any of the others as they might depend on programs previously installed.**
+
 
 ### Installing GUI applications
 
-Most GUI applications I use can also be installed through [`homebrew-cask`](https://github.com/Homebrew/homebrew-cask) by running `casks.sh`:
+Most GUI applications I use — the ones that aren't bloatware — can also be installed through [`homebrew-cask`](https://github.com/Homebrew/homebrew-cask) by running `casks.sh`:
 
 ```console
 $ . ./dotfiles/casks.sh
