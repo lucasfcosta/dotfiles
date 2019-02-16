@@ -37,6 +37,42 @@ brew install ag
 brew install python3
 pip3 install --user --upgrade neovim
 
+# Install `wget` with IRI support.
+brew install wget --with-iri
+
+brew install curl
+
+# Install more recent versions of some macOS tools.
+brew install neovim
+brew install grep
+brew install openssh
+
+# Install other useful binaries.
+brew install git
+brew install yarn --without-node
+brew install tmux
+
+
+
+# -------------------------------
+# Casks
+# -------------------------------
+
+brew install cask
+
+# Dev utilities
+brew cask install docker
+brew cask install tunnelblick
+
+# Browsers
+brew cask install google-chrome
+brew cask install firefox
+
+# Communication
+brew cask install rocket
+brew cask install slack
+brew cask install skype
+
 # Change the user's life forever
 # God bless the best text editor on earth
 brew install vim --with-override-system-vi
