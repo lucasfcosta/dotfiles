@@ -3,7 +3,7 @@
 
 # This installs the spaceship theme for zsh
 # https://github.com/denysdovhan/spaceship-prompt
-if [ -d "{$ZSH_CUSTOM}/themes/spaceship-prompt" ]
+if [ -d "$ZSH/custom/themes/spaceship-prompt" ]
 then
     echo "spaceship-prompt is already installed, skipping..."
 else
