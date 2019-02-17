@@ -153,7 +153,7 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \  'typescript' : {
-\      'extends' : 'jsx',
+\      'extends' : 'tsx',
 \  },
 \}
 
