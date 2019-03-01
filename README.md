@@ -81,11 +81,9 @@ To install them you just need to clone the [powerline/fonts](https://github.com/
 Then, in order to configure Iterm to use one of these fonts, open Iterm's configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Text` and click on `Change Font` to choose one of the fonts `for Powerline`.
 
 
-## Some other stuff
+## Related Content
 
-Here's some content I've written a while ago about related stuff.
-
-**I plan on writing a complete guide about using the terminal as a development environment soon. If you'd like that please send me some motivation at lucas@lucasfcosta.com**.
-
-* [Vim Tips](https://lucasfcosta.com/2017/01/23/Quick-vIM-Tips-That-Will-Save-Your-Life.html)
+* [How I'm still not using GUIs in 2019: A guide to the terminal](https://lucasfcosta.com/2019/02/10/terminal-guide-2019.html)
+* [In Praise of Plain Text](https://lucasfcosta.com/2018/08/05/In-Praise-of-Plaintext.html)
+* [Vim Tips (outdated)](https://lucasfcosta.com/2017/01/23/Quick-vIM-Tips-That-Will-Save-Your-Life.html)
 * [My first blog post about vim (outdated)](https://lucasfcosta.com/2016/09/25/How-I-Learned-to-Stop-Worrying-and-Love-vIM.html)
