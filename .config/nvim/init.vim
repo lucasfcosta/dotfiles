@@ -54,6 +54,9 @@ Plug 'mattn/emmet-vim'
 " semantic-based completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
+" GraphQL Syntax Highlight
+Plug 'jparise/vim-graphql'
+
 " linting engine
 Plug 'w0rp/ale'
 
