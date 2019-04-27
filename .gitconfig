@@ -21,6 +21,13 @@
 [pull]
     rebase = true
 
+[push]
+    recurseSubmodules = check
+
+[status]
+    submodulesummary = 1
+
+
 [alias]
     a = add --all
     ap = add . -p
