@@ -52,7 +52,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mattn/emmet-vim'
 
 " semantic-based completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 
 " GraphQL Syntax Highlight
 Plug 'jparise/vim-graphql'
@@ -144,6 +144,7 @@ let g:ale_sign_warning = '⚠\ '
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
 \}
 
 " make FZF respect gitignore if `ag` is installed
