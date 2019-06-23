@@ -229,6 +229,7 @@ set directory=/tmp//
 nnoremap <C-P> :Files<CR>
 
 " YouCompleteMeMappings
+nnoremap ,gt    :YcmCompleter GetType<CR>
 nnoremap ,dl    :YcmCompleter GoToDeclaration<CR>
 nnoremap ,df    :YcmCompleter GoToDefinition<CR>
 nnoremap ,#     :YcmCompleter GoToReferences<CR>
