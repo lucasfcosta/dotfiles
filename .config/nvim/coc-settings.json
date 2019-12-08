@@ -1,0 +1,6 @@
+{
+    "suggest.autoTrigger": "trigger",
+    "suggest.minTriggerInputLength": 2,
+    "suggest.snippetIndicator": "►",
+    "diagnostic.displayByAle": true
+}
