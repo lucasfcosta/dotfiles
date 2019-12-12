@@ -276,15 +276,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-function! SetupCommandAbbrs(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfunction
-
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)
 """""""""""""""""""""""""""""""""""""""""""""""
