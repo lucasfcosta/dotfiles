@@ -65,20 +65,24 @@ Unfortunately, life has not yet given me the opportunity to make everything in t
 Once you have ran `install.sh` to copy dotfiles to their right places (including `.tmux.conf`), open `tmux` and press `prefix` (<kbd>ctrl</kbd> + <kbd>a</kbd>) + <kbd>I</kbd> (capital I, as in **I**nstall) to fetch the plugin.
 
 
-### Set Iterm's color preset
+### Set Iterm's color preset (if using iTerm)
+
+**I am now using [Kitty](https://sw.kovidgoyal.net/kitty/) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
 
 Open Iterm configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Colors`.
 
 Choose the `Nord.itermcolors` color preset.
 
 
-### Install powerline fonts and configure iTerm to use them
+### Install powerline fonts
 
 In order for [powerline](https://github.com/powerline/powerline) to work properly you will need to have [powerline/fonts](https://github.com/powerline/fonts) installed.
 
 To install them you just need to clone the [powerline/fonts](https://github.com/powerline/fonts) repo and run the `install.sh` script present in their root folter.
 
-Then, in order to configure Iterm to use one of these fonts, open Iterm's configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Text` and click on `Change Font` to choose one of the fonts `for Powerline`.
+If you're using Kitty, it will use the correct powerline font by default, since its configuration is made through a plain-text file.
+
+If you're using ITerm, you need to configure it to use one of these fonts. To do that, open Iterm's configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Text` and click on `Change Font` to choose one of the fonts `for Powerline`.
 
 
 ## Related Content

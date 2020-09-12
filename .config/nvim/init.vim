@@ -29,12 +29,6 @@ Plug 'pangloss/vim-javascript'
 " Typescript Syntax Highlight
 Plug 'leafgarland/typescript-vim'
 
-" Async execution library needed by tsuquyomi
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
-" A client to TSSServer so that we can get autocompletion
-Plug 'Quramy/tsuquyomi'
-
 " rust support
 Plug 'rust-lang/rust.vim'
 
@@ -52,7 +46,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mattn/emmet-vim'
 
 " semantic-based completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " GraphQL Syntax Highlight
 Plug 'jparise/vim-graphql'
@@ -84,51 +78,6 @@ let g:NERDTreeQuitOnOpen=1
 " enable highlight for JSDocs
 let g:javascript_plugin_jsdoc = 1
 
-" disable auto_triggering ycm suggestions pane and instead
-" use semantic completion only on Ctrl+n
-let ycm_trigger_key = '<C-n>'
-let g:ycm_auto_trigger = 0
-let g:ycm_key_invoke_completion = ycm_trigger_key
-
-" this is some arcane magic to allow cycling through the YCM options
-" with the same key that opened it.
-" See http://vim.wikia.com/wiki/Improve_completion_popup_menu for more info.
-let g:ycm_key_list_select_completion = ['<TAB>', '<C-j>']
-inoremap <expr> ycm_trigger_key pumvisible() ? "<C-j>" : ycm_trigger_key;
-
-" show autocomplete suggestions only when typing more than 2 characters
-let g:ycm_min_num_of_chars_for_completion = 2
-
-" show at most 20 completion candidates at a time (more than this would be
-" ridiculous, you'd press TAB so many times it would be better to simply type
-" the entire thing lol)
-" this applies only to the semantic-based engine
-let g:ycm_max_num_candidates = 20
-
-" this is the same as above, but only for the identifier-based engine
-let g:ycm_max_num_identifier_candidates = 10
-
-" blacklist of filetypes in which autocomplete should be disabled
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar': 1,
-      \ 'qf': 1,
-      \ 'notes': 1,
-      \ 'markdown': 1,
-      \ 'unite': 1,
-      \ 'text': 1,
-      \ 'vimwiki': 1,
-      \ 'pandoc': 1,
-      \ 'infolog': 1,
-      \ 'mail': 1
-      \}
-
-" blacklist of filepaths in which autocomplete should be disabled
-let g:ycm_filepath_blacklist = {
-      \ 'html': 1,
-      \ 'jsx': 1,
-      \ 'xml': 1,
-      \}
-
 " fix files on save
 let g:ale_fix_on_save = 1
 
@@ -137,15 +86,24 @@ let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_delay = 1000
 
 " use emojis for errors and warnings
-let g:ale_sign_error = '✗\ '
-let g:ale_sign_warning = '⚠\ '
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
 
 " fixer configurations
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
 \   'typescript': ['prettier'],
+\   'rust': ['rustfmt'],
 \}
+
+"linters for rust
+let g:ale_linters = {
+\   'rust': ['rls'],
+\   'javascript': ['eslint']
+\}
+let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'}}
+let g:ale_rust_rls_toolchain = 'stable'
 
 " make FZF respect gitignore if `ag` is installed
 if (executable('ag'))
@@ -228,12 +186,6 @@ set directory=/tmp//
 " map fzf to ctrl+p
 nnoremap <C-P> :Files<CR>
 
-" YouCompleteMeMappings
-nnoremap ,gt    :YcmCompleter GetType<CR>
-nnoremap ,dl    :YcmCompleter GoToDeclaration<CR>
-nnoremap ,df    :YcmCompleter GoToDefinition<CR>
-nnoremap ,#     :YcmCompleter GoToReferences<CR>
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -260,11 +212,70 @@ set ai
 set si
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Auto-completion (CoC.nvim)
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+let g:coc_global_extensions = [
+\ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+\ 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin',
+\ 'coc-css', 'coc-json', 'coc-rls', 'coc-yaml'
+\ ]
+
+" Use `lj` and `lk` for navigate diagnostics
+nmap <silent> <leader>lj <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>lk <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Map <c-space> to trigger completion and cycle through it
+inoremap <silent><expr> <c-space> coc#refresh()
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <c-space>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<c-space>" :
+    \ coc#refresh()
+
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)
 """""""""""""""""""""""""""""""""""""""""""""""
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null

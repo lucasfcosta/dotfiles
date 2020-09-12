@@ -1,0 +1,11 @@
+{
+    "suggest.autoTrigger": "trigger",
+    "suggest.minTriggerInputLength": 2,
+    "suggest.snippetIndicator": "►",
+    "diagnostic.enable": false,
+    "diagnostic.displayByAle": true,
+    "javascript.suggestionActions.enabled": false,
+    "typescript.suggestionActions.enabled": false,
+    "javascript.suggest.autoImports": true,
+    "typescript.suggest.autoImports": true
+}
