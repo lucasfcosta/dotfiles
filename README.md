@@ -67,7 +67,7 @@ Once you have ran `install.sh` to copy dotfiles to their right places (including
 
 ### Set Iterm's color preset (if using iTerm)
 
-**I am now using [Kitty](https://sw.kovidgoyal.net/kitty/) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
+**I am now using [Alacritty](https://github.com/alacritty/alacritty) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
 
 Open Iterm configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Colors`.
 
@@ -80,7 +80,7 @@ In order for [powerline](https://github.com/powerline/powerline) to work properl
 
 To install them you just need to clone the [powerline/fonts](https://github.com/powerline/fonts) repo and run the `install.sh` script present in their root folter.
 
-If you're using Kitty, it will use the correct powerline font by default, since its configuration is made through a plain-text file.
+If you're using Alacritty, it will use the correct powerline font by default, since its configuration is made through a plain-text file.
 
 If you're using ITerm, you need to configure it to use one of these fonts. To do that, open Iterm's configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Text` and click on `Change Font` to choose one of the fonts `for Powerline`.
 

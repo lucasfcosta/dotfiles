@@ -51,6 +51,7 @@ brew install openssh
 brew install git
 brew install yarn --without-node
 brew install tmux
+brew install alacritty
 
 
 

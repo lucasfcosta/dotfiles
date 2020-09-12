@@ -26,4 +26,4 @@ brew cask install virtualbox-extension-pack
 brew cask install vlc
 brew cask install evernote
 brew cask install rocket
-brew cask install kitty
+brew cask install alacritty
