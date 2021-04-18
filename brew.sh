@@ -76,8 +76,14 @@ brew cask install skype
 
 # Change the user's life forever
 # God bless the best text editor on earth
-brew install vim --with-override-system-vi
-brew install neovim --with-override-system-vi
+brew install vim
+brew install neovim
+
+# Install vim-plug before installing plugins themselves
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# Install nvim plugins
 nvim +PlugClean! +qall
 nvim +silent +PlugInstall +qall
 python3 ~/.config/nvim/plugged/YouCompleteMe/install.py
