@@ -4,29 +4,36 @@ The best dotfiles in the entire universe.
 
 ![my terminal using the dotfiles in this repo](./terminal-demo.png)
 
+These dotfiles should work straight out-of-the box on MacOS. For other operating systems you will need to update a few files, mainly `programs.sh`.
+
+
+## Quickstart
+
+1. Install `brew` following the instructions at [Homebrew's official website](https://brew.sh).
+2. Install `git` using `brew install git` and clone this repository suing `git clone https://github.com/lucasfcosta/dotfiles`.
+3. Execute `./install.sh` to transfer configuration files to your home directory.
+4. Execute `programs.sh` to install all programs.
+
 
 ## Usage Guidelines
 
-### Installing terminal programs
+### Terminal applications
 
-The terminal programs I use can be installed through [`brew`](https://brew.sh) by running `brew.sh`, just like this:
-
-```console
-$ . ./dotfiles/brew.sh
-```
-
-I also had to make a `misc-installs.sh` script to install other necessary pieces of software which I could not install using `brew`. This includes [the `zsh-spaceship` prompt](https://github.com/denysdovhan/spaceship-prompt).
-
-:warning: **I recommend you to run this script before running any of the others as they might depend on programs previously installed.**
+Programs like `docker`, `neovim`, and the alike are installed through `programs.sh` using `brew` itself, which you must have installed _before_ executing `programs.sh`.
 
 
-### Installing GUI applications
+### Casks
 
-Most GUI applications I use — the ones that aren't bloatware — can also be installed through [`homebrew-cask`](https://github.com/Homebrew/homebrew-cask) by running `casks.sh`:
+Casks are GUI applications packaged to be installed through [Homebrew Cask](https://github.com/Homebrew/homebrew-cask).
 
-```console
-$ . ./dotfiles/casks.sh
-```
+These are installed from the list of programs in the `Casks` file.
+
+To install these programs separately from the other ones in `programs.sh`, use `cask install`.
+
+
+### Utilities
+
+Utilities like [the `zsh-spaceship` prompt](https://github.com/denysdovhan/spaceship-prompt) and `rustup` are also installed through `programs.sh`.
 
 
 ### MacOS Defaults
@@ -65,7 +72,7 @@ Unfortunately, life has not yet given me the opportunity to make everything in t
 Once you have ran `install.sh` to copy dotfiles to their right places (including `.tmux.conf`), open `tmux` and press `prefix` (<kbd>ctrl</kbd> + <kbd>a</kbd>) + <kbd>I</kbd> (capital I, as in **I**nstall) to fetch the plugin.
 
 
-### Set Iterm's color preset (if using iTerm)
+### Set Iterm's color preset (if you use iTerm)
 
 **I am now using [Alacritty](https://github.com/alacritty/alacritty) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
 
