@@ -15,7 +15,14 @@ function doIt() {
 		--exclude "LICENSE" \
 		--exclude "terminal-demo.png" \
 		-avh --no-perms . ~;
-	source ~/.bash_profile;
+
+	if test -f "~/.bash_profile"; then
+		source ~/.bash_profile;
+	fi
+
+	if test -f "~/.zsh_profile"; then
+		source ~/.zsh_profile;
+	fi
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
