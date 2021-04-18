@@ -1,15 +1,14 @@
-docker
-tunnelblick
-google-chrome
-firefox
-rocket
-slack
-firefox-nightly
-spotify
-flux
-virtualbox
-virtualbox-extension-pack
-vlc
-rocket
-alacritty
-notion
+cask 'docker'
+cask 'tunnelblick'
+cask 'google-chrome'
+cask 'firefox'
+cask 'rocket'
+cask 'slack'
+cask 'spotify'
+cask 'flux'
+cask 'virtualbox'
+cask 'virtualbox-extension-pack'
+cask 'vlc'
+cask 'rocket'
+cask 'alacritty'
+cask 'notion'

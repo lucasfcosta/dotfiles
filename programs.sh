@@ -58,10 +58,8 @@ brew install alacritty
 # Casks
 # -------------------------------
 
-brew install cask
-
 # Install all casks
-cask install
+brew bundle --file=Cask -v
 
 
 # -------------------------------

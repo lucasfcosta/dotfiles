@@ -28,7 +28,7 @@ Casks are GUI applications packaged to be installed through [Homebrew Cask](http
 
 These are installed from the list of programs in the `Casks` file.
 
-To install these programs separately from the other ones in `programs.sh`, use `cask install`.
+To install these programs separately from the other ones in `programs.sh`, use `brew bundle --file=Cask`.
 
 
 ### Utilities
