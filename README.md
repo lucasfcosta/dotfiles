@@ -74,11 +74,11 @@ Once you have ran `install.sh` to copy dotfiles to their right places (including
 
 ### Set Iterm's color preset (if you use iTerm)
 
-**I am now using [Alacritty](https://github.com/alacritty/alacritty) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
-
 Open Iterm configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Colors`.
 
 Choose the `Nord.itermcolors` color preset.
+
+⚠️ **I am now using [Alacritty](https://github.com/alacritty/alacritty) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
 
 
 ### Install powerline fonts
