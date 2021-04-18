@@ -3,6 +3,9 @@
 # Like the other install script, this is from Mathias Bynens with slight modifications by me
 # https://github.com/mathiasbynens/dotfiles/blob/bb6c76e410bf7b1693edfe60239461fc9205ec02/brew.sh
 
+# Installing oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 echo "Installing brew formulae..."
 
 # Make sure we’re using the latest Homebrew.
@@ -10,6 +13,10 @@ brew update
 
 # Upgrade any already-installed formulae.
 brew upgrade
+
+# Install fortune and strfile for the chucknorris plugin
+brew install fortune
+brew install strfile
 
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
