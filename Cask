@@ -1,0 +1,15 @@
+docker
+tunnelblick
+google-chrome
+firefox
+rocket
+slack
+firefox-nightly
+spotify
+flux
+virtualbox
+virtualbox-extension-pack
+vlc
+rocket
+alacritty
+notion

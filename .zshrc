@@ -4,6 +4,9 @@
 # This is a workaround for having a system node and NVM node
 PATH="/usr/local/bin:$(getconf PATH)"
 
+# Use gnu-sed instead of MacOS's sed
+PATH="/usr/local/opt/sed/libexec/gnubin:$PATH"
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/${USER}/.oh-my-zsh
 

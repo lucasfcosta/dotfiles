@@ -21,8 +21,9 @@ ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
-# Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+
+# Install GNU `sed`
+brew install gnu-sed
 
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
@@ -37,8 +38,8 @@ brew install ag
 brew install python3
 pip3 install --user --upgrade neovim
 
-# Install `wget` with IRI support.
-brew install wget --with-iri
+# Install `wget`
+brew install wget
 
 brew install curl
 
@@ -49,10 +50,8 @@ brew install openssh
 
 # Install other useful binaries.
 brew install git
-brew install yarn --without-node
 brew install tmux
 brew install alacritty
-
 
 
 # -------------------------------
@@ -61,18 +60,13 @@ brew install alacritty
 
 brew install cask
 
-# Dev utilities
-brew cask install docker
-brew cask install tunnelblick
+# Install all casks
+cask install
 
-# Browsers
-brew cask install google-chrome
-brew cask install firefox
 
-# Communication
-brew cask install rocket
-brew cask install slack
-brew cask install skype
+# -------------------------------
+# Text editing
+# -------------------------------
 
 # Change the user's life forever
 # God bless the best text editor on earth
@@ -101,3 +95,22 @@ brew install docker-machine
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+
+# -------------------------------
+# Programs not managed by brew
+# -------------------------------
+
+# This installs the spaceship theme for zsh
+# https://github.com/denysdovhan/spaceship-prompt
+if [ -d "$ZSH/custom/themes/spaceship-prompt" ]
+then
+    echo "spaceship-prompt is already installed, skipping..."
+else
+    git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH/custom/themes/spaceship-prompt"
+    ln -s "$ZSH/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/custom/themes/spaceship.zsh-theme"
+fi
+
+# Installing rustup (for managing Rust)
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
