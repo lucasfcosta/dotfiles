@@ -57,10 +57,7 @@ brew install openssh
 
 # Install other useful binaries.
 brew install git
-brew install tmux
 brew install alacritty
-
-arch -arm64 brew install reattach-to-user-namespace
 
 # Install nvm and Node
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
@@ -97,6 +94,12 @@ python3 ~/.config/nvim/plugged/YouCompleteMe/install.py
 
 # vim's best friend
 brew install tmux
+
+# install what's necessary for tmux to use
+arch -arm64 brew install reattach-to-user-namespace
+
+# install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 brew install git
 brew install git-lfs
