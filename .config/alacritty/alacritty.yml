@@ -407,6 +407,8 @@ key_bindings:
   - { key: F10,      mods: Super,   chars: "\x1b[21;3~"                  }
   - { key: F11,      mods: Super,   chars: "\x1b[23;3~"                  }
   - { key: F12,      mods: Super,   chars: "\x1b[24;3~"                  }
+  # Workaround for enabling the # key in a UK keyboard, see: https://github.com/alacritty/alacritty/issues/1073
+  - { key: Key3,     mods: Super,   chars: "#"                           }
 
     # shortcuts for tmux. the leader key is control-b (0x02)
 
