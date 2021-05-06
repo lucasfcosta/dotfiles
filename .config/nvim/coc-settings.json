@@ -7,5 +7,10 @@
     "javascript.suggestionActions.enabled": false,
     "typescript.suggestionActions.enabled": false,
     "javascript.suggest.autoImports": true,
-    "typescript.suggest.autoImports": true
+    "typescript.suggest.autoImports": true,
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
 }

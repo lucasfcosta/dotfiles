@@ -95,6 +95,7 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'typescript': ['prettier'],
 \   'rust': ['rustfmt'],
+\   'go': ['gofmt', 'goimports'],
 \}
 
 "linters for rust
@@ -119,6 +120,11 @@ let g:user_emmet_settings = {
 \      'extends' : 'tsx',
 \  },
 \}
+
+" enable the Go language server
+let g:go_gopls_enabled=1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""

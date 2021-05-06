@@ -89,6 +89,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # Install nvim plugins
 nvim +PlugClean! +qall
+nvim +GoInstallBinaries
 nvim +silent +PlugInstall +qall
 python3 ~/.config/nvim/plugged/YouCompleteMe/install.py
 
