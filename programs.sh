@@ -131,3 +131,6 @@ fi
 # Installing rustup (for managing Rust)
 curl https://sh.rustup.rs -sSf | sh
 source $HOME/.cargo/env
+
+# Add necessary extensions for CoC support
+rustup component add rls rust-analysis rust-src
