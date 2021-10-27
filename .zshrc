@@ -7,6 +7,13 @@ PATH="/usr/local/bin:$(getconf PATH)"
 # Use gnu-sed instead of MacOS's sed
 PATH="/usr/local/opt/sed/libexec/gnubin:$PATH"
 
+GOPATH="$HOME/go"
+GOROOT="/usr/local/opt/go/libexec"
+GOBIN="$GOPATH/bin"
+PATH="$PATH:$GOPATH"
+PATH="$PATH:$GOROOT/bin"
+PATH="$PATH:$GOBIN"
+
 # Add brew to path
 export PATH=/opt/homebrew/bin:$PATH
 
