@@ -94,6 +94,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
 \   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt', 'goimports'],
 \}
@@ -101,7 +102,9 @@ let g:ale_fixers = {
 "linters for rust
 let g:ale_linters = {
 \   'rust': ['rls'],
-\   'javascript': ['eslint']
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint']
 \}
 let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'}}
 let g:ale_rust_rls_toolchain = 'stable'
