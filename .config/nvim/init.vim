@@ -54,6 +54,12 @@ Plug 'jparise/vim-graphql'
 " linting engine
 Plug 'w0rp/ale'
 
+" golang
+Plug 'fatih/vim-go'
+
+" go debug
+Plug 'sebdah/vim-delve'
+
 
 call plug#end()
 
@@ -106,6 +112,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'typescriptreact': ['eslint']
 \}
+
 let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'}}
 let g:ale_rust_rls_toolchain = 'stable'
 
@@ -124,8 +131,8 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" enable the Go language server
-let g:go_gopls_enabled=1
+"enable gopls lang server
+let g:go_gopls_enabled = 1
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
