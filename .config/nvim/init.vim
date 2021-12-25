@@ -254,7 +254,7 @@ set signcolumn=yes
 let g:coc_global_extensions = [
 \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
 \ 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin',
-\ 'coc-css', 'coc-json', 'coc-rls', 'coc-yaml'
+\ 'coc-css', 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
 \ ]
 
 " Use `lj` and `lk` for navigate diagnostics
