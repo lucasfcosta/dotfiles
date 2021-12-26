@@ -113,8 +113,10 @@ let g:ale_linters = {
 \   'typescriptreact': ['eslint']
 \}
 
+autocmd BufReadPost *.rs setlocal filetype=rust
 let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'}}
 let g:ale_rust_rls_toolchain = 'stable'
+let g:rustfmt_autosave = 1
 
 " make FZF respect gitignore if `ag` is installed
 if (executable('ag'))
