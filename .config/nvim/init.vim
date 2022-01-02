@@ -99,8 +99,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\   'typescriptreact': ['prettier'],
+\   'typescript': ['prettier', 'deno'],
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt', 'goimports'],
 \}
@@ -109,8 +108,7 @@ let g:ale_fixers = {
 let g:ale_linters = {
 \   'rust': ['rls'],
 \   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\   'typescriptreact': ['eslint']
+\   'typescript': ['eslint', 'deno']
 \}
 
 autocmd BufReadPost *.rs setlocal filetype=rust
@@ -254,7 +252,7 @@ set shortmess+=c
 set signcolumn=yes
 
 let g:coc_global_extensions = [
-\ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+\ 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-deno',
 \ 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin',
 \ 'coc-css', 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
 \ ]
