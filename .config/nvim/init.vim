@@ -288,6 +288,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <C-f> <Plug>(coc-refactor)
 
 " Map <c-space> to trigger completion and cycle through it
 inoremap <silent><expr> <c-space> coc#refresh()
