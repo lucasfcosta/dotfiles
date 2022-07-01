@@ -51,9 +51,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " GraphQL Syntax Highlight
 Plug 'jparise/vim-graphql'
 
-" linting engine
-Plug 'w0rp/ale'
-
 " golang
 Plug 'fatih/vim-go'
 
@@ -84,58 +81,8 @@ let g:NERDTreeQuitOnOpen=1
 " enable highlight for JSDocs
 let g:javascript_plugin_jsdoc = 1
 
-" fix files on save
-let g:ale_fix_on_save = 1
-
-" lint after 1000ms after changes are made both on insert mode and normal mode
-let g:ale_lint_on_text_changed = 'always'
-let g:ale_lint_delay = 1000
-
-" use emojis for errors and warnings
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
-
-" fixer configurations
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier', 'deno'],
-\   'rust': ['rustfmt'],
-\   'go': ['gofmt', 'goimports'],
-\}
-
-" allow turning off fixers
-function! s:fckALEToggle(...)
-    let s:fckALEStatus = {}
-    let s:fckALEStatus['global'] = get(g:, 'ale_fix_on_save', 0)
-    let s:fckALEStatus['buffer'] = get(b:, 'ale_fix_on_save', s:fckALEStatus['global'])
-    let s:fckCurrentScope = get(a:, 1, 'global')
-    if (s:fckALEStatus[s:fckCurrentScope] == 1)
-        let s:fckALEStatus[s:fckCurrentScope]=0
-    else
-        let s:fckALEStatus[s:fckCurrentScope]=1
-    endif
-    let g:ale_fix_on_save=s:fckALEStatus['global']
-    let b:ale_fix_on_save=s:fckALEStatus['buffer']
-endfunction
-
-command! ALEDisableFixers       let g:ale_fix_on_save=0
-command! ALEEnableFixers        let g:ale_fix_on_save=1
-command! ALEDisableFixersBuffer let b:ale_fix_on_save=0
-command! ALEEnableFixersBuffer  let b:ale_fix_on_save=0
-command! ALEToggleFixers call functions#fckALEToggle('global')
-command! ALEToggleFixersBuffer call functions#fckALEToggle('buffer')
-
-"linters for rust
-let g:ale_linters = {
-\   'rust': ['rls'],
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint', 'deno']
-\}
-
+" set filetype to rust for .rs files
 autocmd BufReadPost *.rs setlocal filetype=rust
-let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'}}
-let g:ale_rust_rls_toolchain = 'stable'
 let g:rustfmt_autosave = 1
 
 " make FZF respect gitignore if `ag` is installed
@@ -153,10 +100,6 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-"enable gopls lang server
-let g:go_gopls_enabled = 1
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -274,9 +217,9 @@ set shortmess+=c
 set signcolumn=yes
 
 let g:coc_global_extensions = [
-\ 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-deno',
-\ 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin',
-\ 'coc-css', 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
+\ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+\ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
+\ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
 \ ]
 
 " Use `lj` and `lk` for navigate diagnostics
@@ -290,19 +233,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <C-f> <Plug>(coc-refactor)
 
-" Map <c-space> to trigger completion and cycle through it
-inoremap <silent><expr> <c-space> coc#refresh()
+" enable gopls lang server
+let g:go_gopls_enabled = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <c-space>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<c-space>" :
-    \ coc#refresh()
-
+" add missing imports when saving go files
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
