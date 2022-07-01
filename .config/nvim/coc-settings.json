@@ -6,6 +6,7 @@
     },
     "diagnostic.enable": true,
     "javascript": {
+        "autoClosingTags": true,
         "suggestionActions": {
             "enabled": false
         },
@@ -14,6 +15,7 @@
         }
     },
     "typescript": {
+        "autoClosingTags": true,
         "suggest": {
             "autoImports": true
         }

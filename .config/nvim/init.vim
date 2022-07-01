@@ -133,11 +133,16 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
+" disable highlighting for search
+set nohlsearch
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Keymappings
 """""""""""""""""""""""""""""""""""""""""""""""
+
+" map leaderkey to space (for namespacing user-land commands)
+let mapleader=" "
 
 " dont use arrowkeys
 noremap <Up> <NOP>
@@ -183,6 +188,7 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
 
 " Auto indent
 " Copy the indentation from the previous line when starting a new line
@@ -191,6 +197,13 @@ set ai
 " Smart indent
 " Automatically inserts one extra level of indentation in some cases, and works for C-like files
 set si
+
+" search as I type
+set incsearch
+
+" scroll 8 rows before I reach bottom
+set scrolloff=8
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -204,7 +217,7 @@ set hidden
 set nobackup
 set nowritebackup
 
-" Better display for messages
+" More space for displaying for messages
 set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
@@ -213,8 +226,11 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" always show signcolumns
+" always show signcolumns (an extra column for err/warnings)
 set signcolumn=yes
+
+" show max width as 80 spaces
+set colorcolumn=80
 
 let g:coc_global_extensions = [
 \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
@@ -251,6 +267,22 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Function to trim whitespace
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+" Automatically call a few functions when saving files
+augroup lucasfcosta
+    autocmd!
+    autocmd BufWritePre * :call TrimWhitespace()
+    " automatically format files on save
+    autocmd BufWrite * :call CocAction('format')
+augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)
