@@ -1,28 +1,39 @@
 {
+  "coc.source.emoji.filetypes": ["markdown"],
+  "diagnostic": {
+    "errorSign": "✘",
+    "warningSign": "⚠",
+    "infoSign": "ⓘ",
+    "enableMessage": "jump",
+    "virtualText": true,
+    "virtualTextCurrentLineOnly": false,
+    "messageTarget": "float",
+    "virtualText": true
+  },
+  "suggest": {
+    "autoTrigger": "trigger",
+    "minTriggerInputLength": 2,
+    "snippetIndicator": "►"
+  },
+  "diagnostic.enable": true,
+  "javascript": {
+    "autoClosingTags": true,
+    "suggestionActions": {
+      "enabled": false
+    },
     "suggest": {
-        "autoTrigger": "trigger",
-        "minTriggerInputLength": 2,
-        "snippetIndicator": "►"
-    },
-    "diagnostic.enable": true,
-    "javascript": {
-        "autoClosingTags": true,
-        "suggestionActions": {
-            "enabled": false
-        },
-        "suggest": {
-            "autoImports": true
-        }
-    },
-    "typescript": {
-        "autoClosingTags": true,
-        "suggest": {
-            "autoImports": true
-        }
-    },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "autoImports": true
     }
+  },
+  "typescript": {
+    "autoClosingTags": true,
+    "suggest": {
+      "autoImports": true
+    }
+  },
+  "golang": {
+    "command": "gopls",
+    "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+    "filetypes": ["go"]
+  }
 }
