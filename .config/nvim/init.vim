@@ -57,10 +57,6 @@ Plug 'fatih/vim-go'
 " go debug
 Plug 'sebdah/vim-delve'
 
-" Pretty diagnostics
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
-
 
 call plug#end()
 
@@ -287,11 +283,8 @@ augroup lucasfcosta
     autocmd BufWrite * :call CocAction('format')
 augroup END
 
-" open Trouble diagnostic window
-nnoremap <leader>xx <cmd>TroubleToggle loclist<cr>
-
-" direct coc-errors to trouble's loclist
-nmap <silent> gL <cmd>call coc#rpc#request('fillDiagnostics', [bufnr('%')])<CR><cmd>Trouble loclist<CR>`
+" open the diagnostic window
+nnoremap <leader>xx <cmd>CocDiagnostics<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)

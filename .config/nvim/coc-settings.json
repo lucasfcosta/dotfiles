@@ -1,21 +1,20 @@
 {
   "coc.source.emoji.filetypes": ["markdown"],
   "diagnostic": {
+    "enable": true,
     "errorSign": "✘",
     "warningSign": "⚠",
     "infoSign": "ⓘ",
-    "enableMessage": "jump",
-    "virtualText": true,
-    "virtualTextCurrentLineOnly": false,
+    "enableMessage": "always",
     "messageTarget": "float",
-    "virtualText": true
+    "virtualText": false,
+    "checkCurrentLine": true
   },
   "suggest": {
     "autoTrigger": "trigger",
     "minTriggerInputLength": 2,
     "snippetIndicator": "►"
   },
-  "diagnostic.enable": true,
   "javascript": {
     "autoClosingTags": true,
     "suggestionActions": {
