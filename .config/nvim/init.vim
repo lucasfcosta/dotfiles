@@ -238,10 +238,6 @@ let g:coc_global_extensions = [
 \ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
 \ ]
 
-" Use `lj` and `lk` for navigate diagnostics
-nmap <silent> <leader>lj <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>lk <Plug>(coc-diagnostic-next)
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
@@ -285,6 +281,11 @@ augroup END
 
 " open the diagnostic window
 nnoremap <leader>xx <cmd>CocDiagnostics<cr>
+
+" Use `lj` and `lk` for navigate diagnostics
+nmap <silent> <leader>lj <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>lk <Plug>(coc-diagnostic-next)
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)
