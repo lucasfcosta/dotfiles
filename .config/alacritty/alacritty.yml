@@ -67,7 +67,7 @@ font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
   normal:
-    family: "Fira Mono for Powerline"
+    family: "FiraCode Nerd Font"
     # style: Retina
 
   # The bold font face
