@@ -17,8 +17,8 @@ set cursorline              " Find the current line quickly.
 
 call plug#begin()
 
-" nord-vim colorscheme
-Plug 'arcticicestudio/nord-vim'
+" catpuccin colorscheme
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 " neomake
 Plug 'neomake/neomake'
@@ -59,7 +59,6 @@ Plug 'sebdah/vim-delve'
 
 
 call plug#end()
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -109,9 +108,6 @@ let g:user_emmet_settings = {
 " 256 colors
 set t_Co=256
 
-" set colorscheme
-colorscheme nord
-
 " long lines as just one line (have to scroll horizontally)
 set nowrap
 
@@ -135,6 +131,74 @@ set guioptions-=L
 
 " disable highlighting for search
 set nohlsearch
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Theming comings
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+local catppuccin = require("catppuccin")
+
+-- configure it
+catppuccin.setup {
+    native_lsp = {
+        enabled = false,
+        virtual_text = {
+            errors = "italic",
+            hints = "italic",
+            warnings = "italic",
+            information = "italic",
+        },
+        underlines = {
+            errors = "underline",
+            hints = "underline",
+            warnings = "underline",
+            information = "underline",
+        },
+    },
+    coc_nvim = true,
+    lsp_trouble = false,
+    cmp = false,
+    lsp_saga = false,
+    gitgutter = false,
+    gitsigns = false,
+    telescope = false,
+    nvimtree = {
+        enabled = true,
+        show_root = false,
+        transparent_panel = false,
+    },
+    neotree = {
+        enabled = false,
+        show_root = false,
+        transparent_panel = false,
+    },
+    which_key = false,
+    indent_blankline = {
+        enabled = false,
+        colored_indent_levels = false,
+    },
+    dashboard = false,
+    neogit = false,
+    vim_sneak = false,
+    fern = false,
+    barbar = false,
+    bufferline = false,
+    markdown = true,
+    lightspeed = false,
+    ts_rainbow = false,
+    hop = false,
+    notify = true,
+    telekasten = false,
+    symbols_outline = true,
+}
+EOF
+
+" set colorscheme
+let g:catppuccin_flavour = "frappe" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
