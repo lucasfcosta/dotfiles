@@ -20,9 +20,6 @@ call plug#begin()
 " catpuccin colorscheme
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
-" neomake
-Plug 'neomake/neomake'
-
 " JavaScript Highlight & Improved Indentation
 Plug 'pangloss/vim-javascript'
 
@@ -46,8 +43,26 @@ Plug 'editorconfig/editorconfig-vim'
 " emmet
 Plug 'mattn/emmet-vim'
 
-" semantic-based completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" LSP support (see :help lsp)
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+
+" Auto-complete for LSP
+Plug 'hrsh7th/nvim-cmp'
+
+" LSP source for the auto-complete
+Plug 'hrsh7th/cmp-nvim-lsp'
+
+" Allows auto-complete within the buffer
+Plug 'hrsh7th/cmp-buffer'
+
+" Snippet engine to allow for expansions
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" Extra LSP sources (I use it for prettier) - plenary is a dep for null-ls
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " GraphQL Syntax Highlight
 Plug 'jparise/vim-graphql'
@@ -65,9 +80,6 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
-
-" Neomake async hooks
-call neomake#configure#automake('w')
 
 " NvimTree
 map <silent> <C-n> :NvimTreeToggle<CR>
@@ -110,7 +122,7 @@ let g:user_emmet_settings = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Visual Related Configs
+" => Native Visual Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " 256 colors
@@ -137,6 +149,28 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" More space for displaying for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns (an extra column for err/warnings)
+set signcolumn=yes
+
+" show max width as 80 spaces
+set colorcolumn=80
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Theming comings
@@ -148,7 +182,7 @@ local catppuccin = require("catppuccin")
 -- configure it
 catppuccin.setup {
     native_lsp = {
-        enabled = false,
+        enabled = true,
         virtual_text = {
             errors = "italic",
             hints = "italic",
@@ -162,9 +196,9 @@ catppuccin.setup {
             information = "underline",
         },
     },
-    coc_nvim = true,
+    coc_nvim = false,
     lsp_trouble = false,
-    cmp = false,
+    cmp = true,
     lsp_saga = false,
     gitgutter = false,
     gitsigns = false,
@@ -207,7 +241,7 @@ colorscheme catppuccin
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Keymappings
+" => General Keymappings
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " map leaderkey to space (for namespacing user-land commands)
@@ -276,62 +310,144 @@ set scrolloff=8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Auto-completion (CoC.nvim)
+" => LSP-related configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
-" if hidden is not set, TextEdit might fail.
-set hidden
+lua << EOF
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<leader>xx', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>lk', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<leader>lj', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-" More space for displaying for messages
-set cmdheight=2
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+  -- If there's a formatter available, use it on save
+  if client.server_capabilities.documentFormattingProvider then
+      print("Formatting set for: " .. client.name .. "(" .. tostring(client.server_capabilities.documentFormattingProvider)  .. ")")
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
+end
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+-- Setup nvim-cmp for auto-completion.
+local cmp = require('cmp')
 
-" always show signcolumns (an extra column for err/warnings)
-set signcolumn=yes
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  })
+})
 
-" show max width as 80 spaces
-set colorcolumn=80
+local capabilities = require('cmp_nvim_lsp')
+  .update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-let g:coc_global_extensions = [
-\ 'coc-emoji', 'coc-eslint', 'coc-prettier',
-\ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
-\ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
-\ ]
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> <C-f> <Plug>(coc-refactor)
+-- Setup server configs
+language_servers = {
+    'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
+    'rust_analyzer', 'jsonls', 'sumneko_lua', 'gopls', 'terraformls', 'vimls'
+}
 
-" enable gopls lang server
-let g:go_gopls_enabled = 1
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+
+-- Automatically install and configure each of the servers listed below
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({
+    automatic_installation = true,
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
+for i, ls in ipairs(language_servers) do
+    local opts = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+    }
+
+    if ls == "tsserver" then
+        local tsserver_opts = {
+            on_attach = function(client, bufnr)
+                client.resolved_capabilities.document_formatting = false -- Valid for nvim <= 0.7
+                client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
+                vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
+                on_attach(client, bufnr)
+            end,
+        }
+        opts = vim.tbl_deep_extend("keep", tsserver_opts, opts)
+        print(tostring(opts.on_attach == tsserver_opts.on_attach))
+    end
+
+    require('lspconfig')[ls].setup(opts)
+end
+
+
+-- Prettier LSP
+null_ls = require('null-ls');
+null_ls.setup({
+    sources = { null_ls.builtins.formatting.prettier },
+    on_attach = on_attach
+})
+EOF
+
+" let g:coc_global_extensions = [
+" \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+" \ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
+" \ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
+" \ ]
 
 " add missing imports when saving go files
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Function to trim whitespace
 fun! TrimWhitespace()
@@ -345,15 +461,8 @@ augroup lucasfcosta
     autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
     " automatically format files on save
-    autocmd BufWrite * :call CocAction('format')
+    "autocmd BufWrite * :call CocAction('format')
 augroup END
-
-" open the diagnostic window
-nnoremap <leader>xx <cmd>CocDiagnostics<cr>
-
-" Use `lj` and `lk` for navigate diagnostics
-nmap <silent> <leader>lj <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>lk <Plug>(coc-diagnostic-next)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
