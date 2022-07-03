@@ -20,15 +20,6 @@ call plug#begin()
 " catpuccin colorscheme
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
-" JavaScript Highlight & Improved Indentation
-Plug 'pangloss/vim-javascript'
-
-" Typescript Syntax Highlight
-Plug 'leafgarland/typescript-vim'
-
-" rust support
-Plug 'rust-lang/rust.vim'
-
 " file-tree explorer
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
