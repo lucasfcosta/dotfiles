@@ -343,7 +343,6 @@ local on_attach = function(client, bufnr)
 
   -- If there's a formatter available, use it on save
   if client.server_capabilities.documentFormattingProvider then
-      print("Formatting set for: " .. client.name .. "(" .. tostring(client.server_capabilities.documentFormattingProvider)  .. ")")
       vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
   end
 end
@@ -420,7 +419,6 @@ for i, ls in ipairs(language_servers) do
             end,
         }
         opts = vim.tbl_deep_extend("keep", tsserver_opts, opts)
-        print(tostring(opts.on_attach == tsserver_opts.on_attach))
     end
 
     require('lspconfig')[ls].setup(opts)
