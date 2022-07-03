@@ -313,6 +313,9 @@ set scrolloff=8
 " => LSP-related configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
+" When to trigger completion on insert mode (see :help completeopt)
+set completeopt=menu,menuone,noselect
+
 lua << EOF
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -393,7 +396,6 @@ language_servers = {
     'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
     'rust_analyzer', 'jsonls', 'sumneko_lua', 'gopls', 'terraformls', 'vimls'
 }
-
 
 -- Automatically install and configure each of the servers listed below
 local lsp_installer = require("nvim-lsp-installer")
