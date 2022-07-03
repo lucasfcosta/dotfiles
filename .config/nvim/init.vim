@@ -137,9 +137,6 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-" disable highlighting for search
-set nohlsearch
-
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Theming comings
