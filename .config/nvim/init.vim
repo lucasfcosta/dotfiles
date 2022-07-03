@@ -47,23 +47,23 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 " Allows auto-complete within the buffer
 Plug 'hrsh7th/cmp-buffer'
 
+" Allows auto-complete for filesystem paths
+Plug 'hrsh7th/cmp-path'
+
+" Allows auto-complete for vim (LUA) configs
+Plug 'hrsh7th/cmp-nvim-lua'
+
 " Snippet engine to allow for expansions
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-" Extra LSP sources (I use it for prettier) - plenary is a dep for null-ls
+" Extra LSP sources (I use it for prettier)
+" plenary is a dep for null-ls (and telescope)
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
-" GraphQL Syntax Highlight
-Plug 'jparise/vim-graphql'
-
-" golang
-Plug 'fatih/vim-go'
-
-" go debug
-Plug 'sebdah/vim-delve'
-
+"nvim-telescope/telescope.nvim
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
@@ -367,9 +367,23 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
+  formatting = {
+      fields = { "kind", "abbr", "menu" },
+      format = function(entry, vim_item)
+          vim_item.menu = ({
+            nvim_lsp = "[LSP]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+            nvim_lua = "[NVIM LUA]",
+          })[entry.source.name]
+          return vim_item
+      end,
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'buffer' },
+    { name = 'path' },
+    { name = 'nvim_lua' },
   })
 })
 
