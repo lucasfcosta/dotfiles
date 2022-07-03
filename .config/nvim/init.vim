@@ -314,7 +314,7 @@ set scrolloff=8
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " When to trigger completion on insert mode (see :help completeopt)
-set completeopt=menu,menuone,noselect
+set completeopt=menu,menuone
 
 lua << EOF
 -- Mappings.
