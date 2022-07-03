@@ -418,11 +418,13 @@ for i, ls in ipairs(language_servers) do
     }
 
     if ls == "tsserver" then
+        -- Disable auto-formatting for TSServer only so I can use prettier
+        -- (unless I use <leader>fm)
         local tsserver_opts = {
             on_attach = function(client, bufnr)
                 client.resolved_capabilities.document_formatting = false -- Valid for nvim <= 0.7
                 client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
-                vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
+                vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
                 on_attach(client, bufnr)
             end,
         }
