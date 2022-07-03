@@ -32,8 +32,9 @@ Plug 'leafgarland/typescript-vim'
 " rust support
 Plug 'rust-lang/rust.vim'
 
-" NERDTree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" file-tree explorer
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " Async FuzzyFind
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
@@ -68,11 +69,18 @@ call plug#end()
 " Neomake async hooks
 call neomake#configure#automake('w')
 
-" Open NERDTree automatically when vim starts up
-" autocmd vimenter * NERDTree
-" NERDTree
-let NERDTreeShowHidden=1
-map <silent> <C-n> :NERDTreeToggle<CR>
+" NvimTree
+map <silent> <C-n> :NvimTreeToggle<CR>
+
+lua << EOF
+require("nvim-tree").setup {
+    actions = {
+        open_file = {
+            quit_on_open = true,
+        }
+    }
+}
+EOF
 
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
