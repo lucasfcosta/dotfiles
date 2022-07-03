@@ -442,6 +442,11 @@ null_ls.setup({
     sources = { null_ls.builtins.formatting.prettier },
     on_attach = on_attach
 })
+
+-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
 EOF
 
 " let g:coc_global_extensions = [
@@ -449,9 +454,6 @@ EOF
 " \ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
 " \ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
 " \ ]
-
-" add missing imports when saving go files
-" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Function to trim whitespace
 fun! TrimWhitespace()
