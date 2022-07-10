@@ -46,10 +46,9 @@ brew install findutils
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
 
-# This is needed for fzf to know how to ignore files listed in .gitignore
-# and know how to show hidden files
-# It is also a good CLI tool
-brew install ag
+# This is needed for Telescope to be able to do live greps
+# It is also a good CLI tool (faster than ag in many cases)
+brew install ripgrep
 
 # Remove outdated versions from the cellar.
 brew cleanup

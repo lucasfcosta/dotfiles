@@ -24,11 +24,7 @@ Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 
-" Async FuzzyFind
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-
-" .editorconfig
+" .editorconfig (can this use native LSP? - check)
 Plug 'editorconfig/editorconfig-vim'
 
 " emmet
@@ -62,8 +58,15 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
-"nvim-telescope/telescope.nvim
+" File finder
 Plug 'nvim-telescope/telescope.nvim'
+
+" Make telescope faster by adding native FZF sorter
+" https://github.com/nvim-telescope/telescope-fzf-native.nvim/issues/23#issuecomment-1174097943
+Plug 'lucasfcosta/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Enable live-grep capabilities on Telescope
+Plug 'BurntSushi/ripgrep'
 
 call plug#end()
 
@@ -193,7 +196,7 @@ catppuccin.setup {
     lsp_saga = false,
     gitgutter = false,
     gitsigns = false,
-    telescope = false,
+    telescope = true,
     nvimtree = {
         enabled = true,
         show_root = false,
@@ -230,9 +233,8 @@ let g:catppuccin_flavour = "frappe" " latte, frappe, macchiato, mocha
 colorscheme catppuccin
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""
-" => General Keymappings
+" => General Key Mappings
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " map leaderkey to space (for namespacing user-land commands)
@@ -263,9 +265,23 @@ set clipboard=unnamed
 set backupdir=/tmp//
 set directory=/tmp//
 
-" map fzf to ctrl+p
-nnoremap <C-P> :Files<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => File finder (Telescope)
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+local telescope = require('telescope')
+telescope.setup {
+  extensions = {
+    fzf = {}
+  }
+}
+telescope.load_extension('fzf')
+EOF
+
+" map Telescope to ctrl+p
+nnoremap <C-P> <cmd>Telescope live_grep hidden=true<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
