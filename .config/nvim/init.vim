@@ -88,16 +88,6 @@ require("nvim-tree").setup {
 }
 EOF
 
-" close NERDTree after a file is opened
-let g:NERDTreeQuitOnOpen=1
-
-" enable highlight for JSDocs
-let g:javascript_plugin_jsdoc = 1
-
-" set filetype to rust for .rs files
-autocmd BufReadPost *.rs setlocal filetype=rust
-let g:rustfmt_autosave = 1
-
 " make FZF respect gitignore if `ag` is installed
 if (executable('ag'))
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
@@ -133,7 +123,6 @@ set number
 set laststatus=2
 
 " toggle invisible characters
-set invlist
 set list
 set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
