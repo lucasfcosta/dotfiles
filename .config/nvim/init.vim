@@ -290,6 +290,7 @@ EOF
 
 " map Telescope to ctrl+p
 nnoremap <C-P> <cmd>Telescope grep_string search=""<cr>
+command -nargs=1 Rg :Telescope grep_string default_text="<args>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
