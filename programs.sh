@@ -15,40 +15,44 @@ brew upgrade
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
 
+# Use arch -arm64 if using an arm64 chip
+INSTALL_CHIP_PREFIX="arch -arm64"
+[[ $(uname -m) != "arm64" ]] && INSTALL_CHIP_PREFIX=""
+
 # -------------------------------
 # Essential programs
 # -------------------------------
 
 # Utils
-brew install wget
-brew install curl
+$(INSTALL_CHIP_PREFIX) brew install wget
+$(INSTALL_CHIP_PREFIX) brew install curl
 
 # Alacritty
-brew install alacritty
+$(INSTALL_CHIP_PREFIX) brew install alacritty
 
 # Git
-brew install git
-brew install git-lfs
+$(INSTALL_CHIP_PREFIX) brew install git
+$(INSTALL_CHIP_PREFIX) brew install git-lfs
 
-brew install docker
-brew install docker-compose
-brew install docker-machine
+$(INSTALL_CHIP_PREFIX) brew install docker
+$(INSTALL_CHIP_PREFIX) brew install docker-compose
+$(INSTALL_CHIP_PREFIX) brew install docker-machine
 
 # Install more recent versions of some macOS tools.
-brew install grep
-brew install openssh
-brew install ssh-copy-id
-brew install gnu-sed
+$(INSTALL_CHIP_PREFIX) brew install grep
+$(INSTALL_CHIP_PREFIX) brew install openssh
+$(INSTALL_CHIP_PREFIX) brew install ssh-copy-id
+$(INSTALL_CHIP_PREFIX) brew install gnu-sed
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-brew install findutils
+$(INSTALL_CHIP_PREFIX) brew install findutils
 
 # Install GnuPG to enable PGP-signing commits.
-brew install gnupg
+$(INSTALL_CHIP_PREFIX) brew install gnupg
 
 # This is needed for Telescope to be able to do live greps
 # It is also a good CLI tool (faster than ag in many cases)
-brew install ripgrep
+$(INSTALL_CHIP_PREFIX) brew install ripgrep
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -59,7 +63,7 @@ brew cleanup
 
 # Change the user's life forever
 # God bless the best text editor on earth
-brew install neovim
+$(INSTALL_CHIP_PREFIX) brew install neovim
 
 # Install vim-plug before installing plugins themselves
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -71,10 +75,10 @@ nvim +GoInstallBinaries
 nvim +silent +PlugInstall +qall
 
 # vim's best friend
-brew install tmux
+$(INSTALL_CHIP_PREFIX) brew install tmux
 
 # install what's necessary for tmux to use
-arch -arm64 brew install reattach-to-user-namespace
+$(INSTALL_CHIP_PREFIX) brew install reattach-to-user-namespace
 
 # install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -124,4 +128,4 @@ fi
 # Casks
 # -------------------------------
 
-for i in $(cat ./Cask); do arch -arm64 brew install "$i"; done
+for i in $(cat ./Cask); do $(INSTALL_CHIP_PREFIX) brew install "$i"; done
