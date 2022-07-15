@@ -439,8 +439,8 @@ for i, ls in ipairs(language_servers) do
         flags = lsp_flags,
     }
 
-    if ls == "tsserver" then
-        -- Disable auto-formatting for TSServer only so I can use prettier
+    if ls == "tsserver" or ls == "eslint" then
+        -- Disable auto-formatting for TSServer and ESLint only so I can use prettier
         -- (unless I use <leader>fm)
         local tsserver_opts = {
             on_attach = function(client, bufnr)
@@ -459,9 +459,16 @@ end
 
 -- Prettier LSP
 null_ls = require('null-ls');
+
+local null_ls_sources = {
+	null_ls.builtins.formatting.prettier.with({
+		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+	})
+}
+
 null_ls.setup({
-    sources = { null_ls.builtins.formatting.prettier },
-    on_attach = on_attach
+    sources = null_ls_sources,
+    on_attach = on_attach,
 })
 
 -- Configurations for diagnostics
@@ -526,8 +533,6 @@ endfun
 augroup lucasfcosta
     autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
-    " automatically format files on save
-    "autocmd BufWrite * :call CocAction('format')
 augroup END
 
 
