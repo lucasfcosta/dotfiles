@@ -296,6 +296,10 @@ EOF
 nnoremap <C-P> <cmd>Telescope grep_string search=""<cr>
 command -nargs=1 Rg :Telescope grep_string default_text="<args>"
 
+" map other pickers
+nnoremap <leader>gc <cmd>Telescope git_commits search=""<cr>
+nnoremap <leader>gb <cmd>Telescope git_branches search=""<cr>
+nnoremap <leader>bb <cmd>Telescope buffers search=""<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Indentation
