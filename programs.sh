@@ -119,3 +119,9 @@ else
     ln -s "$ZSH/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/custom/themes/spaceship.zsh-theme"
 fi
 
+
+# -------------------------------
+# Casks
+# -------------------------------
+
+for i in $(cat ./Cask); do arch -arm64 brew install "$i"; done
