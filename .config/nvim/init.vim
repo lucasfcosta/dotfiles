@@ -84,7 +84,12 @@ require("nvim-tree").setup {
         open_file = {
             quit_on_open = true,
         }
-    }
+    },
+    git = {
+      enable = true,
+      ignore = false,
+      timeout = 500,
+    },
 }
 EOF
 
@@ -267,6 +272,8 @@ telescope.setup {
         "--line-number",
         "--column",
         "--hidden",
+        "-g",
+        "!.git/"
     }
   },
   extensions = {
