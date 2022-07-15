@@ -263,6 +263,10 @@ telescope.setup {
         i = {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
+            ["<C-f>"] = function(bufnr)
+                actions.send_selected_to_qflist(bufnr)
+                vim.cmd("copen")
+            end
         }
     },
     vimgrep_arguments = {
