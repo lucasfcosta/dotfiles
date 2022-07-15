@@ -430,7 +430,11 @@ lsp_installer.setup({
 
 for i, ls in ipairs(language_servers) do
     local opts = {
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = true -- Valid for nvim <= 0.7
+            client.server_capabilities.documentFormattingProvider = true  -- Valid for nvim >= 0.8
+            on_attach(client, bufnr)
+        end,
         capabilities = capabilities,
         flags = lsp_flags,
     }
