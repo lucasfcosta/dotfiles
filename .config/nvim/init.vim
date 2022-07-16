@@ -530,12 +530,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 EOF
 
-" let g:coc_global_extensions = [
-" \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
-" \ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
-" \ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
-" \ ]
-
 " Function to trim whitespace
 fun! TrimWhitespace()
     let l:save = winsaveview()
