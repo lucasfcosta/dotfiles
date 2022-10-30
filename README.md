@@ -81,15 +81,13 @@ Choose the `Nord.itermcolors` color preset.
 ⚠️ **I am now using [Alacritty](https://github.com/alacritty/alacritty) instead of iTerm**, but I've kept the color presets here in case you still want to use iTerm.
 
 
-### Install powerline fonts
+### Install NERD fonts
 
-In order for [powerline](https://github.com/powerline/powerline) to work properly you will need to have [powerline/fonts](https://github.com/powerline/fonts) installed.
+For the icons in `vim` and `tmux` to appear, you'll have to install [NERD fonts](https://www.nerdfonts.com/).
 
-To install them you just need to clone the [powerline/fonts](https://github.com/powerline/fonts) repo and run the `install.sh` script present in their root folter.
+Given how big the NERD fonts repo is, you'll have to install fonts manually so that you can pick only the ones you want. That's why I didn't automate the installation process in this repository.
 
-If you're using Alacritty, it will use the correct powerline font by default, since its configuration is made through a plain-text file.
-
-If you're using ITerm, you need to configure it to use one of these fonts. To do that, open Iterm's configs by pressing <kbd>command</kbd> + <kbd>,</kbd>, go to `Profiles` and then `Text` and click on `Change Font` to choose one of the fonts `for Powerline`.
+Once you've installed your preferred font, update Alacritty's configuration file with the name of the chosen font.
 
 
 ## Related Content

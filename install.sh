@@ -7,6 +7,8 @@ cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \

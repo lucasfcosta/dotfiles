@@ -17,78 +17,81 @@ set cursorline              " Find the current line quickly.
 
 call plug#begin()
 
-" nord-vim colorscheme
-Plug 'arcticicestudio/nord-vim'
+" catpuccin colorscheme
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
-" neomake
-Plug 'neomake/neomake'
+" file-tree explorer
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
 
-" JavaScript Highlight & Improved Indentation
-Plug 'pangloss/vim-javascript'
-
-" Typescript Syntax Highlight
-Plug 'leafgarland/typescript-vim'
-
-" rust support
-Plug 'rust-lang/rust.vim'
-
-" NERDTree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
-" Async FuzzyFind
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-
-" .editorconfig
+" .editorconfig (can this use native LSP? - check)
 Plug 'editorconfig/editorconfig-vim'
 
 " emmet
 Plug 'mattn/emmet-vim'
 
-" semantic-based completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" LSP support (see :help lsp)
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 
-" GraphQL Syntax Highlight
-Plug 'jparise/vim-graphql'
+" Auto-complete for LSP
+Plug 'hrsh7th/nvim-cmp'
 
-" golang
-Plug 'fatih/vim-go'
+" LSP source for the auto-complete
+Plug 'hrsh7th/cmp-nvim-lsp'
 
-" go debug
-Plug 'sebdah/vim-delve'
+" Allows auto-complete within the buffer
+Plug 'hrsh7th/cmp-buffer'
 
+" Allows auto-complete for filesystem paths
+Plug 'hrsh7th/cmp-path'
+
+" Allows auto-complete for vim (LUA) configs
+Plug 'hrsh7th/cmp-nvim-lua'
+
+" Snippet engine to allow for expansions
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" Extra LSP sources (I use it for prettier)
+" plenary is a dep for null-ls (and telescope)
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" File finder
+Plug 'nvim-telescope/telescope.nvim'
+
+" Make telescope faster by adding native FZF sorter
+" https://github.com/nvim-telescope/telescope-fzf-native.nvim/issues/23#issuecomment-1174097943
+Plug 'lucasfcosta/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Enable live-grep capabilities on Telescope
+Plug 'BurntSushi/ripgrep'
 
 call plug#end()
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
-" Neomake async hooks
-call neomake#configure#automake('w')
+" NvimTree
+map <silent> <C-n> :NvimTreeToggle<CR>
 
-" Open NERDTree automatically when vim starts up
-" autocmd vimenter * NERDTree
-" NERDTree
-let NERDTreeShowHidden=1
-map <silent> <C-n> :NERDTreeToggle<CR>
-
-" close NERDTree after a file is opened
-let g:NERDTreeQuitOnOpen=1
-
-" enable highlight for JSDocs
-let g:javascript_plugin_jsdoc = 1
-
-" set filetype to rust for .rs files
-autocmd BufReadPost *.rs setlocal filetype=rust
-let g:rustfmt_autosave = 1
-
-" make FZF respect gitignore if `ag` is installed
-if (executable('ag'))
-    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-endif
+lua << EOF
+require("nvim-tree").setup {
+    actions = {
+        open_file = {
+            quit_on_open = true,
+        }
+    },
+    git = {
+      enable = true,
+      ignore = false,
+      timeout = 500,
+    },
+}
+EOF
 
 " make emmet behave well with JSX in JS and TS files
 let g:user_emmet_settings = {
@@ -103,14 +106,11 @@ let g:user_emmet_settings = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Visual Related Configs
+" => Native Visual Related Configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " 256 colors
 set t_Co=256
-
-" set colorscheme
-colorscheme nord
 
 " long lines as just one line (have to scroll horizontally)
 set nowrap
@@ -123,7 +123,6 @@ set number
 set laststatus=2
 
 " toggle invisible characters
-set invlist
 set list
 set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
@@ -133,12 +132,88 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-" disable highlighting for search
-set nohlsearch
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" More space for displaying for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns (an extra column for err/warnings)
+set signcolumn=yes
+
+" show max width as 80 spaces
+set colorcolumn=80
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Keymappings
+" => Theming comings
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+local catppuccin = require("catppuccin")
+
+-- configure it
+catppuccin.setup {
+    integrations = {
+        treesitter = false,
+        native_lsp = {
+            enabled = true,
+            virtual_text = {
+                errors = "italic",
+                hints = "italic",
+                warnings = "italic",
+                information = "italic",
+            },
+            underlines = {
+                errors = "underline",
+                hints = "underline",
+                warnings = "underline",
+                information = "underline",
+            },
+        },
+        cmp = true,
+        gitsigns = true,
+        telescope = true,
+        nvimtree = {
+            enabled = true,
+            show_root = true,
+            transparent_panel = false,
+        },
+        indent_blankline = {
+            enabled = false,
+            colored_indent_levels = false,
+        },
+        dashboard = false,
+        neogit = false,
+        bufferline = false,
+        markdown = true,
+        lightspeed = false,
+        ts_rainbow = false,
+        hop = false,
+        notify = false,
+        telekasten = false,
+        symbols_outline = false,
+    }
+}
+EOF
+
+" set colorscheme
+let g:catppuccin_flavour = "frappe" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => General Key Mappings
 """""""""""""""""""""""""""""""""""""""""""""""
 
 " map leaderkey to space (for namespacing user-land commands)
@@ -169,10 +244,57 @@ set clipboard=unnamed
 set backupdir=/tmp//
 set directory=/tmp//
 
-" map fzf to ctrl+p
-nnoremap <C-P> :Files<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => File finder (Telescope)
+"""""""""""""""""""""""""""""""""""""""""""""""
 
+lua << EOF
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+telescope.setup {
+  defaults = {
+    mappings = {
+        i = {
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-f>"] = function(bufnr)
+                actions.send_selected_to_qflist(bufnr)
+                vim.cmd("copen")
+            end
+        }
+    },
+    vimgrep_arguments = {
+        "rg",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--hidden",
+        "-g",
+        "!.git/"
+    }
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+    }
+  },
+}
+telescope.load_extension('fzf')
+EOF
+
+" map Telescope to ctrl+p
+nnoremap <C-P> <cmd>Telescope grep_string search=""<cr>
+command -nargs=1 Rg :Telescope grep_string default_text="<args>"
+
+" map other pickers
+nnoremap <leader>gc <cmd>Telescope git_commits search=""<cr>
+nnoremap <leader>gb <cmd>Telescope git_branches search=""<cr>
+nnoremap <leader>bb <cmd>Telescope buffers search=""<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Indentation
@@ -207,62 +329,206 @@ set scrolloff=8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" => Auto-completion (CoC.nvim)
+" => LSP-related configs
 """""""""""""""""""""""""""""""""""""""""""""""
 
-" if hidden is not set, TextEdit might fail.
-set hidden
+" When to trigger completion on insert mode (see :help completeopt)
+set completeopt=menu,menuone
 
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
+lua << EOF
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<leader>xx', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>lk', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<leader>lj', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
-" More space for displaying for messages
-set cmdheight=2
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+  -- If there's a formatter available, use it on save
+  if client.server_capabilities.documentFormattingProvider then
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
+end
 
-" always show signcolumns (an extra column for err/warnings)
-set signcolumn=yes
+-- Setup nvim-cmp for auto-completion.
+local cmp = require('cmp')
 
-" show max width as 80 spaces
-set colorcolumn=80
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  formatting = {
+      fields = { "kind", "abbr", "menu" },
+      format = function(entry, vim_item)
+          vim_item.menu = ({
+            nvim_lsp = "[LSP]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+            nvim_lua = "[NVIM LUA]",
+          })[entry.source.name]
+          return vim_item
+      end,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'nvim_lua' },
+  })
+})
 
-let g:coc_global_extensions = [
-\ 'coc-emoji', 'coc-eslint', 'coc-prettier',
-\ 'coc-tsserver', 'coc-tslint-plugin', 'coc-css',
-\ 'coc-json', 'coc-rls', 'coc-yaml', 'coc-rust-analyzer'
-\ ]
+local capabilities = require('cmp_nvim_lsp')
+  .update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> <C-f> <Plug>(coc-refactor)
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
 
-" enable gopls lang server
-let g:go_gopls_enabled = 1
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+-- Setup server configs
+language_servers = {
+    'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
+    'rust_analyzer', 'jsonls', 'sumneko_lua', 'gopls', 'terraformls', 'vimls'
+}
 
-" add missing imports when saving go files
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+-- Automatically install and configure each of the servers listed below
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({
+    automatic_installation = true,
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+for i, ls in ipairs(language_servers) do
+    local opts = {
+        on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = true -- Valid for nvim <= 0.7
+            client.server_capabilities.documentFormattingProvider = true  -- Valid for nvim >= 0.8
+            on_attach(client, bufnr)
+        end,
+        capabilities = capabilities,
+        flags = lsp_flags,
+    }
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+    if ls == "tsserver" or ls == "eslint" then
+        -- Disable auto-formatting for TSServer and ESLint only so I can use prettier
+        -- (unless I use <leader>fm)
+        local tsserver_opts = {
+            on_attach = function(client, bufnr)
+                client.resolved_capabilities.document_formatting = false -- Valid for nvim <= 0.7
+                client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
+                vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
+                on_attach(client, bufnr)
+            end,
+        }
+        opts = vim.tbl_deep_extend("keep", tsserver_opts, opts)
+    end
+
+    require('lspconfig')[ls].setup(opts)
+end
+
+
+-- Prettier LSP
+null_ls = require('null-ls');
+
+local null_ls_sources = {
+	null_ls.builtins.formatting.prettier.with({
+		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+	})
+}
+
+null_ls.setup({
+    sources = null_ls_sources,
+    on_attach = on_attach,
+})
+
+-- Configurations for diagnostics
+local signs = {
+    { name = "DiagnosticSignError", text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
+
+local config = {
+    virtual_text = false,
+    signs = { active = signs },
+    update_in_insert = true,
+    underline = true,
+    severity_sort = true,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+    }
+}
+
+vim.diagnostic.config(config)
+
+-- Auto diagnostics on hover
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
+-- Change border of signature help info
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded",
+})
+
+EOF
 
 " Function to trim whitespace
 fun! TrimWhitespace()
@@ -275,16 +541,7 @@ endfun
 augroup lucasfcosta
     autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
-    " automatically format files on save
-    autocmd BufWrite * :call CocAction('format')
 augroup END
-
-" open the diagnostic window
-nnoremap <leader>xx <cmd>CocDiagnostics<cr>
-
-" Use `lj` and `lk` for navigate diagnostics
-nmap <silent> <leader>lj <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>lk <Plug>(coc-diagnostic-next)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
