@@ -288,8 +288,8 @@ telescope.load_extension('fzf')
 EOF
 
 " map Telescope to ctrl+p
-nnoremap <C-P> <cmd>Telescope grep_string search=""<cr>
-command -nargs=1 Rg :Telescope grep_string default_text="<args>"
+nnoremap <C-P> <cmd>Telescope live_grep search=""<cr>
+command -nargs=1 Rg :Telescope live_grep default_text="<args>"
 
 " map other pickers
 nnoremap <leader>gc <cmd>Telescope git_commits search=""<cr>
