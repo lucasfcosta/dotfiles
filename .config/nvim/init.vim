@@ -450,8 +450,7 @@ lsp_installer.setup({
 for i, ls in ipairs(language_servers) do
     local opts = {
         on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = true -- Valid for nvim <= 0.7
-            client.server_capabilities.documentFormattingProvider = true  -- Valid for nvim >= 0.8
+            client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
             on_attach(client, bufnr)
         end,
         capabilities = capabilities,
@@ -463,7 +462,6 @@ for i, ls in ipairs(language_servers) do
         -- (unless I use <leader>fm)
         local tsserver_opts = {
             on_attach = function(client, bufnr)
-                client.resolved_capabilities.document_formatting = false -- Valid for nvim <= 0.7
                 client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
                 vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
                 on_attach(client, bufnr)
@@ -526,6 +524,17 @@ fun! TrimWhitespace()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfun
+
+" Toggle verbose mode for debugging
+function! ToggleVerbose()
+    if !&verbose
+        set verbosefile=~/.log/vim/verbose.log
+        set verbose=15
+    else
+        set verbose=0
+        set verbosefile=
+    endif
+endfunction
 
 " Automatically call a few functions when saving files
 augroup lucasfcosta
