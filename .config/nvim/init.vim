@@ -57,6 +57,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'prettier/vim-prettier', { 'do': 'npm install --omit=dev' }
 
 " File finder
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Make telescope faster by adding native FZF sorter
@@ -268,6 +269,7 @@ telescope.setup {
     },
     vimgrep_arguments = {
         "rg",
+        "--smart-case",
         "--no-heading",
         "--with-filename",
         "--line-number",
@@ -291,9 +293,10 @@ EOF
 
 " map Telescope to ctrl+p
 nnoremap <C-P> <cmd>Telescope live_grep search=""<cr>
-command -nargs=1 Rg :Telescope live_grep default_text="<args>"
+command -nargs=1 Rg :Telescope live_grep default_text=<args>
 
 " map other pickers
+nnoremap <leader>ff <cmd>Telescope find_files search=""<cr>
 nnoremap <leader>gc <cmd>Telescope git_commits search=""<cr>
 nnoremap <leader>gb <cmd>Telescope git_branches search=""<cr>
 nnoremap <leader>bb <cmd>Telescope buffers search=""<cr>
