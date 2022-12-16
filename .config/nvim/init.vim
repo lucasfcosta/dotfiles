@@ -53,10 +53,8 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-" Extra LSP sources (I use it for prettier)
-" plenary is a dep for null-ls (and telescope)
-Plug 'nvim-lua/plenary.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+" Prettier official plugin
+Plug 'prettier/vim-prettier', { 'do': 'npm install --omit=dev' }
 
 " File finder
 Plug 'nvim-telescope/telescope.nvim'
@@ -103,6 +101,10 @@ let g:user_emmet_settings = {
 \  },
 \}
 
+" Prettier
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -469,21 +471,6 @@ for i, ls in ipairs(language_servers) do
 
     require('lspconfig')[ls].setup(opts)
 end
-
-
--- Prettier LSP
-null_ls = require('null-ls');
-
-local null_ls_sources = {
-	null_ls.builtins.formatting.prettier.with({
-		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-	})
-}
-
-null_ls.setup({
-    sources = null_ls_sources,
-    on_attach = on_attach,
-})
 
 -- Configurations for diagnostics
 local signs = {
