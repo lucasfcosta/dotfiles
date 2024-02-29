@@ -67,6 +67,16 @@ Plug 'lucasfcosta/telescope-fzf-native.nvim', { 'do': 'make' }
 " Enable live-grep capabilities on Telescope
 Plug 'BurntSushi/ripgrep'
 
+" Ok, Microsoft, you win
+Plug 'github/copilot.vim'
+
+" Helm
+Plug 'towolf/vim-helm'
+
+" ChatGPT stuff
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
+
 call plug#end()
 
 
@@ -128,6 +138,7 @@ set laststatus=2
 " toggle invisible characters
 set list
 set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set noeol
 
 " disable scrollbars (real hackers don't use scrollbars)
 set guioptions-=r
@@ -163,25 +174,30 @@ set colorcolumn=80
 """""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
-local catppuccin = require("catppuccin")
-
--- configure it
-catppuccin.setup {
+require("catppuccin").setup({
     integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
         treesitter = false,
+        notify = false,
+        mini = {
+            enabled = true,
+            indentscope_color = "",
+        },
         native_lsp = {
             enabled = true,
             virtual_text = {
-                errors = "italic",
-                hints = "italic",
-                warnings = "italic",
-                information = "italic",
+              errors = { "italic" },
+              hints = { "italic" },
+              warnings = { "italic" },
+              information = { "italic" },
             },
             underlines = {
-                errors = "underline",
-                hints = "underline",
-                warnings = "underline",
-                information = "underline",
+              errors = { "underline" },
+              hints = { "underline" },
+              warnings = { "underline" },
+              information = { "underline" },
             },
         },
         cmp = true,
@@ -206,8 +222,8 @@ catppuccin.setup {
         notify = false,
         telekasten = false,
         symbols_outline = false,
-    }
-}
+    },
+})
 EOF
 
 " set colorscheme
@@ -421,7 +437,7 @@ cmp.setup({
 })
 
 local capabilities = require('cmp_nvim_lsp')
-  .update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
@@ -430,9 +446,14 @@ local lsp_flags = {
 
 -- Setup server configs
 language_servers = {
-    'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
-    'rust_analyzer', 'jsonls', 'sumneko_lua', 'gopls', 'terraformls', 'vimls'
+    'pyright', 'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
+    'rust_analyzer', 'jsonls', 'lua_ls', 'gopls', 'terraformls', 'tflint',
+    'vimls'
 }
+
+require'lspconfig'.tflint.setup{}
+
+require'lspconfig'.terraformls.setup{}
 
 -- Automatically install and configure each of the servers listed below
 local lsp_installer = require("nvim-lsp-installer")
@@ -542,6 +563,8 @@ augroup lucasfcosta
     autocmd BufWritePre * :call TrimWhitespace()
 augroup END
 
+autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
+autocmd BufWritePre *.tf lua vim.lsp.buf.format()
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)

@@ -27,8 +27,8 @@ window:
   # Blank space added around the window in pixels. This padding is not scaled by
   # DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
-    y: 0
+    x: 5
+    y: 5
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -406,7 +406,7 @@ cursor:
   # window is not focused.
   unfocused_hollow: true
 
-# dynamic_title: false
+dynamic_title: true
 
 # Live config reload (changes require restart)
 live_config_reload: true
