@@ -565,6 +565,7 @@ augroup END
 
 autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
 autocmd BufWritePre *.tf lua vim.lsp.buf.format()
+autocmd BufRead,BufNewFile *.mdx set filetype=markdown
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Utils (a.k.a. mess I can't categorize)
