@@ -31,8 +31,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mattn/emmet-vim'
 
 " LSP support (see :help lsp)
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
 
 " Auto-complete for LSP
 Plug 'hrsh7th/nvim-cmp'
@@ -72,10 +73,6 @@ Plug 'github/copilot.vim'
 
 " Helm
 Plug 'towolf/vim-helm'
-
-" ChatGPT stuff
-Plug 'MunifTanjim/nui.nvim'
-Plug 'dpayne/CodeGPT.nvim'
 
 call plug#end()
 
@@ -436,6 +433,27 @@ cmp.setup({
   })
 })
 
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+language_servers = {
+    'pyright', 'ts_ls', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
+    'rust_analyzer', 'jsonls', 'lua_ls', 'gopls', 'terraformls', 'tflint',
+    'vimls'
+}
+
+
+require("mason-lspconfig").setup({
+    ensure_installed = language_servers,
+})
+
 local capabilities = require('cmp_nvim_lsp')
   .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -445,28 +463,11 @@ local lsp_flags = {
 }
 
 -- Setup server configs
-language_servers = {
-    'pyright', 'tsserver', 'html', 'cssls', 'marksman', 'dockerls', 'yamlls', 'eslint',
-    'rust_analyzer', 'jsonls', 'lua_ls', 'gopls', 'terraformls', 'tflint',
-    'vimls'
-}
-
 require'lspconfig'.tflint.setup{}
 
 require'lspconfig'.terraformls.setup{}
 
--- Automatically install and configure each of the servers listed below
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-    automatic_installation = true,
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
+require'lspconfig'.ts_ls.setup{}
 
 for i, ls in ipairs(language_servers) do
     local opts = {
@@ -478,7 +479,7 @@ for i, ls in ipairs(language_servers) do
         flags = lsp_flags,
     }
 
-    if ls == "tsserver" or ls == "eslint" then
+    if ls == "ts_ls" or ls == "eslint" then
         -- Disable auto-formatting for TSServer and ESLint only so I can use prettier
         -- (unless I use <leader>fm)
         local tsserver_opts = {
