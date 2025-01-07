@@ -74,8 +74,27 @@ Plug 'github/copilot.vim'
 " Helm
 Plug 'towolf/vim-helm'
 
+" Deps for avante.nvim
+Plug 'stevearc/dressing.nvim'
+Plug 'MunifTanjim/nui.nvim'
+
+" Optional deps for avante.nvim
+Plug 'hrsh7th/nvim-cmp'
+Plug 'HakonHarnes/img-clip.nvim'
+Plug 'zbirenbaum/copilot.lua'
+
+Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+
 call plug#end()
 
+"""""""""""""""""""""""""""""""""""""""""""""""
+" => Avante.nvim configs
+"""""""""""""""""""""""""""""""""""""""""""""""
+autocmd! User avante.nvim
+lua << EOF
+require('avante_lib').load()
+require('avante').setup()
+EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Configs
