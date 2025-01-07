@@ -381,36 +381,42 @@ vim.keymap.set('n', '<leader>lk', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', '<leader>lj', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local bufopts = { noremap=true, silent=true, buffer=args.buf }
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
-  -- If there's a formatter available, use it on save
-  if client.server_capabilities.documentFormattingProvider then
-      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-  end
-end
+    -- Updated formatting function
+    vim.keymap.set('n', '<leader>f', function()
+      vim.lsp.buf.format({ async = true })
+    end, bufopts)
+
+    -- If there's a formatter available, use it on save
+    if client.server_capabilities.documentFormattingProvider then
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = args.buf,
+            callback = function()
+                vim.lsp.buf.format({ async = false })
+            end,
+        })
+    end
+  end,
+})
 
 -- Setup nvim-cmp for auto-completion.
 local cmp = require('cmp')
@@ -488,32 +494,6 @@ require'lspconfig'.terraformls.setup{}
 
 require'lspconfig'.ts_ls.setup{}
 
-for i, ls in ipairs(language_servers) do
-    local opts = {
-        on_attach = function(client, bufnr)
-            client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
-            on_attach(client, bufnr)
-        end,
-        capabilities = capabilities,
-        flags = lsp_flags,
-    }
-
-    if ls == "ts_ls" or ls == "eslint" then
-        -- Disable auto-formatting for TSServer and ESLint only so I can use prettier
-        -- (unless I use <leader>fm)
-        local tsserver_opts = {
-            on_attach = function(client, bufnr)
-                client.server_capabilities.documentFormattingProvider = false  -- Valid for nvim >= 0.8
-                vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
-                on_attach(client, bufnr)
-            end,
-        }
-        opts = vim.tbl_deep_extend("keep", tsserver_opts, opts)
-    end
-
-    require('lspconfig')[ls].setup(opts)
-end
-
 -- Configurations for diagnostics
 local signs = {
     { name = "DiagnosticSignError", text = "" },
@@ -576,12 +556,6 @@ function! ToggleVerbose()
         set verbosefile=
     endif
 endfunction
-
-" Automatically call a few functions when saving files
-augroup lucasfcosta
-    autocmd!
-    autocmd BufWritePre * :call TrimWhitespace()
-augroup END
 
 autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
 autocmd BufWritePre *.tf lua vim.lsp.buf.format()
