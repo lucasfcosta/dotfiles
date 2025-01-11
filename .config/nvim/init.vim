@@ -401,10 +401,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
-    -- Updated formatting function
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format({ async = true })
     end, bufopts)
+
+    -- Disable LSP formatting for tsserver and eslint so that we use prettier
+    if client.name == "ts_ls" or client.name == "eslint" then
+      client.server_capabilities.documentFormattingProvider = false
+    end
 
     -- If there's a formatter available, use it on save
     if client.server_capabilities.documentFormattingProvider then
