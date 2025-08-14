@@ -4,20 +4,6 @@ cd "$(dirname "${BASH_SOURCE}")"
 
 git pull origin master
 
-function installZshAliases() {
-	if [ -z "$ZSH_CUSTOM" ]; then
-		if [ -n "$ZSH" ]; then
-			ZSH_CUSTOM="$ZSH/custom"
-		else
-			ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-		fi
-	fi
-	mkdir -p "$ZSH_CUSTOM"
-	if [ -f "./aliases.zsh" ]; then
-		rsync -avh --no-perms ./aliases.zsh "$ZSH_CUSTOM/aliases.zsh"
-	fi
-}
-
 function copyFiles() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
@@ -39,13 +25,11 @@ function copyFiles() {
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
 	copyFiles
-	installZshCustom
 else
 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo ""
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		copyFiles
-		installZshCustom
 	fi
 fi
 
