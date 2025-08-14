@@ -35,3 +35,15 @@ compinit
 # This keeps aliases separate from .zshrc for easier organization.
 aliases_file="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh"
 [ -f "$aliases_file" ] && source "$aliases_file"
+
+
+# ===============================
+# Key bindings
+# ===============================
+# Enable Vi-style keybindings in Zsh:
+# - Normal mode (ESC) and Insert mode like in Vim.
+bindkey -v
+
+# Map Ctrl+R to an incremental reverse search through history
+# (search results appear as you type, updating in real time).
+bindkey '^R' history-incremental-search-backward
