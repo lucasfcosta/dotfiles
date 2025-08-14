@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-# This has been shamelessly copied from mathiasbynens/dotfiles
-# https://github.com/mathiasbynens/dotfiles/blob/b22c32290e1518c0f228afba254ee6a3f6ab6d7a/bootstrap.sh
-
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
-
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
 		--exclude "install.sh" \
+		--exclude "programs.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		--exclude "terminal-demo.png" \
