@@ -47,3 +47,13 @@ bindkey -v
 # Map Ctrl+R to an incremental reverse search through history
 # (search results appear as you type, updating in real time).
 bindkey '^R' history-incremental-search-backward
+
+# ===============================
+# Theme / Prompt configuration
+# ===============================
+# Load the main Zsh theme configuration from an external file.
+# Uses XDG_CONFIG_HOME if set, otherwise defaults to ~/.config/zsh/main.zsh-theme.
+# This keeps theme settings separate from .zshrc for cleaner organization,
+# making it easier to update or swap themes without editing core shell config.
+theme_file="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/main.zsh-theme"
+[ -f "$theme_file" ] && source "$theme_file"
