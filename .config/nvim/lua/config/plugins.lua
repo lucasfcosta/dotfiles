@@ -42,6 +42,23 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
+      {
+        "s1n7ax/nvim-window-picker",
+        version = "2.*",
+        config = function()
+          require("window-picker").setup({
+            selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            filter_rules = {
+              include_current_win = false,
+              autoselect_one = true,
+              bo = {
+                filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                buftype = { "terminal", "quickfix" },
+              },
+            },
+          })
+        end,
+      },
     },
     cmd = "Neotree",
     keys = {
@@ -54,6 +71,13 @@ require("lazy").setup({
           handler = function(file_path)
             require("neo-tree.command").execute({ action = "close" })
           end
+        },
+      },
+      window = {
+        mappings = {
+          ["<C-v>"] = "open_vsplit",
+          ["<C-x>"] = "open_split",
+          ["w"] = "open_with_window_picker",
         },
       },
       filesystem = {
