@@ -12,7 +12,3 @@ require("config.autocmds")
 
 -- Plugin manager bootstrap + plugin specifications
 require("config.plugins")
-
--- TODO
--- open new splits to the right, not left
--- Switch from neotree to oil
