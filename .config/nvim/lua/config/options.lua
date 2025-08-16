@@ -32,5 +32,16 @@ vim.opt.updatetime = 500
 -- This helps with scrolling and context awareness
 vim.opt.scrolloff = 8
 
--- Always show the sign column so layout doesn’t shift
+-- Always show the sign column so layout doesn't shift
 vim.opt.signcolumn = "yes"
+
+-- Show ghost characters with custom symbols for tabs, newlines, etc.
+vim.opt.list = true
+vim.opt.listchars = {
+  tab = "¦ ",
+  eol = "¬",
+  trail = "⋅",
+  extends = "❯",
+  precedes = "❮"
+}
+vim.opt.endofline = false
