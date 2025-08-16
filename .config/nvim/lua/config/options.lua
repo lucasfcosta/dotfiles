@@ -35,6 +35,10 @@ vim.opt.scrolloff = 8
 -- Always show the sign column so layout doesn't shift
 vim.opt.signcolumn = "yes"
 
+-- Open new splits to the right and below (more natural)
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Show ghost characters with custom symbols for tabs, newlines, etc.
 vim.opt.list = true
 vim.opt.listchars = {
