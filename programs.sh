@@ -25,6 +25,10 @@ brew install neovim
 brew install tmux
 brew install nvm
 
+# Install fonts
+echo "Installing fonts..."
+brew install --cask font-fira-code-nerd-font
+
 # Remove quarantine from Alacritty
 sudo xattr -d com.apple.quarantine /Applications/Alacritty.app 2>/dev/null || true
 

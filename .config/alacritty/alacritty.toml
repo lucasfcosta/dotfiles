@@ -5,10 +5,8 @@ unfocused_hollow = true
 [font]
 size = 16.0
 
-# Let's keep this here for a bit just in case we want to
-# go back to FiraCode Nerd Font
-# [font.normal]
-# family = "FiraCode Nerd Font"
+[font.normal]
+family = "FiraCode Nerd Font"
 
 [mouse]
 hide_when_typing = true
