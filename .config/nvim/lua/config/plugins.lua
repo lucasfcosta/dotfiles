@@ -22,27 +22,54 @@ require("lazy").setup({
     config = function() vim.cmd.colorscheme("tokyonight") end,
   },
 
+  -- Status line
+  { 
+    "nvim-lualine/lualine.nvim",        
+    event = "VeryLazy", 
+    opts = {
+      options = {
+        section_separators = '',
+        component_separators = '',
+      }
+    }
+  },
+
   -- File explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
+    cmd = "Neotree",
     keys = {
-      { "<C-n>", ":Neotree toggle<CR>", desc = "Toggle Neotree" },
+      { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
     },
     opts = {
-      close_if_last_window = true,
-      window = {
-        width = 30,
+      event_handlers = {
+        {
+          event = "file_opened",
+          handler = function(file_path)
+            require("neo-tree.command").execute({ action = "close" })
+          end
+        },
+      },
+      filesystem = {
+        visible = true,
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_hidden = false,
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false,
+        },
       },
     },
   },
-
-  -- Status line
-  { "nvim-lualine/lualine.nvim",        event = "VeryLazy", opts = {} },
 
   -- Fuzzy finder
   {
