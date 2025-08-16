@@ -24,6 +24,7 @@ brew install curl
 brew install neovim
 brew install tmux
 brew install nvm
+brew install ripgrep
 
 # Install fonts
 echo "Installing fonts..."

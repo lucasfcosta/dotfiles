@@ -118,12 +118,18 @@ require("lazy").setup({
       local actions = require("telescope.actions")
       return {
         defaults = {
+          file_ignore_patterns = { "^%.git/" },
           mappings = {
             i = {
               -- Move selection up/down with Ctrl+j / Ctrl+k
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
             },
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
           },
         },
       }
