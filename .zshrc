@@ -28,13 +28,17 @@ compinit
 
 
 # ===============================
+# Shell environment configuration
+# ===============================
+# Load shell environment settings (nvm, paths, etc.)
+[ -f "$HOME/shell-config.zsh" ] && source "$HOME/shell-config.zsh"
+
+
+# ===============================
 # Aliases
 # ===============================
-# Load personal aliases from an external file.
-# Uses XDG_CONFIG_HOME if set, otherwise defaults to ~/.config/zsh/aliases.zsh.
-# This keeps aliases separate from .zshrc for easier organization.
-aliases_file="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh"
-[ -f "$aliases_file" ] && source "$aliases_file"
+# Load personal aliases from external file
+[ -f "$HOME/aliases.zsh" ] && source "$HOME/aliases.zsh"
 
 
 # ===============================
