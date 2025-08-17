@@ -34,4 +34,3 @@ else
 fi
 
 unset copyFiles
-unset installZshAliases

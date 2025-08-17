@@ -31,14 +31,14 @@ compinit
 # Shell environment configuration
 # ===============================
 # Load shell environment settings (nvm, paths, etc.)
-[ -f "$HOME/shell-config.zsh" ] && source "$HOME/shell-config.zsh"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shell-config.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shell-config.zsh"
 
 
 # ===============================
 # Aliases
 # ===============================
 # Load personal aliases from external file
-[ -f "$HOME/aliases.zsh" ] && source "$HOME/aliases.zsh"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh"
 
 
 # ===============================
