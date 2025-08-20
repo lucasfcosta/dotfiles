@@ -23,14 +23,43 @@ require("lazy").setup({
   },
 
   -- Status line
-  { 
-    "nvim-lualine/lualine.nvim",        
-    event = "VeryLazy", 
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     opts = {
       options = {
         section_separators = '',
         component_separators = '',
-      }
+        theme = 'auto',
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = {
+          {
+            'filename',
+            path = 1,  -- Shows relative path from current working directory
+            shorting_target = 0,  -- Don't shorten the path
+          }
+        },
+        lualine_x = {},  -- Remove encoding, filetype, etc.
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+          {
+            'filename',
+            path = 1,
+            shorting_target = 0,
+          }
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
     }
   },
 
