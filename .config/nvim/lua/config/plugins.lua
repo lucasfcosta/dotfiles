@@ -107,6 +107,10 @@ require("lazy").setup({
           ["<C-v>"] = "open_vsplit",
           ["<C-x>"] = "open_split",
           ["w"] = "open_with_window_picker",
+          -- Unbind '/' (to prevent Neo-tree from hijacking it)
+          ["/"] = false,
+          -- Rebind filter to 'f'
+          ["f"] = "fuzzy_finder",
         },
       },
       filesystem = {
