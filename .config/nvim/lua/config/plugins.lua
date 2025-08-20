@@ -135,7 +135,7 @@ require("lazy").setup({
     cmd = "Telescope",
     keys = {
       -- I use mostly <leader>ff to find files and <leader>fg to find a string
-      -- but finding buffers with <leader>fb and reading vim's help with 
+      -- but finding buffers with <leader>fb and reading vim's help with
       -- <leader>fh are also useful.
       { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
       { "<leader>fg", function() require("telescope.builtin").live_grep() end,  desc = "Live grep" },
@@ -193,6 +193,29 @@ require("lazy").setup({
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
 
+      -- Set consistent float appearance for LSP windows
+      local border = "rounded"
+      local max_width = 80
+      -- Hover (Shift+K) and signature help
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, max_width = max_width })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border, max_width = max_width })
+
+      -- Also set default border via lspconfig UI helpers
+      local ok_windows, windows = pcall(require, "lspconfig.ui.windows")
+      if ok_windows and windows and windows.default_options then
+        windows.default_options.border = border
+      end
+
+      -- Diagnostics float defaults
+      vim.diagnostic.config({
+        float = {
+          border = border,
+          max_width = max_width,
+        },
+      })
+
+      -- Keep configuration minimal: rely on handler options and lspconfig window defaults
+
       -- Buffer-local LSP keymaps when a server attaches
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
@@ -214,7 +237,7 @@ require("lazy").setup({
 
           -- Diagnostics: float + navigation + loclist
           map("n", "<leader>e", function()
-            vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = "rounded" })
+            vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border, max_width = max_width })
           end, "Diag: Show details (float)")
 
           -- Navigating diagnostics
@@ -234,7 +257,7 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     opts = {
-      suggestion = { 
+      suggestion = {
         enabled = true,
         auto_trigger = true,
         debounce = 500,
