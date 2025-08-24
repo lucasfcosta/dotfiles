@@ -196,15 +196,12 @@ require("lazy").setup({
       -- Set consistent float appearance for LSP windows
       local border = "rounded"
       local max_width = 80
+
       -- Hover (Shift+K) and signature help
+      require("lspconfig.ui.windows").default_options.border = border
+      vim.opt.winborder = border
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border, max_width = max_width })
       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border, max_width = max_width })
-
-      -- Also set default border via lspconfig UI helpers
-      local ok_windows, windows = pcall(require, "lspconfig.ui.windows")
-      if ok_windows and windows and windows.default_options then
-        windows.default_options.border = border
-      end
 
       -- Diagnostics float defaults
       vim.diagnostic.config({
@@ -213,8 +210,6 @@ require("lazy").setup({
           max_width = max_width,
         },
       })
-
-      -- Keep configuration minimal: rely on handler options and lspconfig window defaults
 
       -- Buffer-local LSP keymaps when a server attaches
       vim.api.nvim_create_autocmd("LspAttach", {
