@@ -31,18 +31,33 @@ require("lazy").setup({
         section_separators = '',
         component_separators = '',
         theme = 'auto',
+        globalstatus = false,
       },
       sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch' },
+        lualine_a = {
+          {
+            'mode',
+            fmt = function(str)
+              return str:sub(1,1)  -- first letter only
+            end,
+          },
+        },
+        lualine_b = {
+          {
+            'branch',
+            fmt = function(str)
+              return #str > 20 and str:sub(1, 17) .. "…" or str
+            end,
+          },
+        },
         lualine_c = {
           {
             'filename',
-            path = 1,  -- Shows relative path from current working directory
-            shorting_target = 0,  -- Don't shorten the path
+            path = 1,
+            shorting_target = 40,
           }
         },
-        lualine_x = {},  -- Remove encoding, filetype, etc.
+        lualine_x = {},
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
@@ -53,7 +68,7 @@ require("lazy").setup({
           {
             'filename',
             path = 1,
-            shorting_target = 0,
+            shorting_target = 40,
           }
         },
         lualine_x = {},
