@@ -14,12 +14,28 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Define your plugins concisely
 require("lazy").setup({
-  -- Colorscheme
+  -- Colorschemes
+  { "folke/tokyonight.nvim", lazy = true },
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     lazy = false,
     priority = 1000,
-    config = function() vim.cmd.colorscheme("tokyonight") end,
+    config = function()
+      require("catppuccin").setup({
+        integrations = {
+          neotree = true,
+        },
+        custom_highlights = function(colors)
+          return {
+            -- Ensure neo-tree cursor line is visible in light mode
+            NeoTreeCursorLine = { bg = colors.surface0 },
+          }
+        end,
+      })
+      local theme = require("config.theme")
+      theme.apply_theme(theme.read_theme())
+    end,
   },
 
   -- Status line

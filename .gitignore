@@ -1,1 +1,10 @@
 .DS_Store
+
+# Theme toggle state (personal preference, not part of dotfiles)
+.config/theme-mode
+.config/alacritty/colors-active.toml
+.config/zsh/theme-active.zsh
+.config/tmux/theme-active.conf
+
+# Claude code stuff
+.claude

@@ -2,14 +2,6 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 
-# Monochrome markers from vcs_info itself
-zstyle ':vcs_info:*' stagedstr   '%F{245}+%f'
-zstyle ':vcs_info:*' unstagedstr '%F{245}*%f'
-
-# Branch box + status box
-zstyle ':vcs_info:*' formats       '%F{240}<%F{245}%b%F{240}>%f %F{240}[%F{245}%c%u%m%F{240}]%f'
-zstyle ':vcs_info:*' actionformats '%F{240}(%F{245}%b%F{240})%f %F{240}[%F{245}%c%u%m%F{240}]%f'
-
 # One small hook: add '?' for untracked, or 'ok' if everything is clean
 zstyle ':vcs_info:git*+set-message:*' hooks git-simple-status
 +vi-git-simple-status() {
@@ -29,10 +21,23 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-simple-status
 }
 
 function toon { echo -n "∂" }
-theme_precmd() { vcs_info }
+
+theme_precmd() {
+  # Reload theme colors dynamically from active theme file
+  source ~/.config/zsh/theme-active.zsh
+
+  # Update vcs_info styles with current colors (expand variables now)
+  zstyle ':vcs_info:*' stagedstr   "%F{${ZSH_THEME_COLOR_CONTENT}}+%f"
+  zstyle ':vcs_info:*' unstagedstr "%F{${ZSH_THEME_COLOR_CONTENT}}*%f"
+  zstyle ':vcs_info:*' formats       "%F{${ZSH_THEME_COLOR_DECORATIVE}}<%F{${ZSH_THEME_COLOR_CONTENT}}%b%F{${ZSH_THEME_COLOR_DECORATIVE}}>%f %F{${ZSH_THEME_COLOR_DECORATIVE}}[%F{${ZSH_THEME_COLOR_CONTENT}}%c%u%m%F{${ZSH_THEME_COLOR_DECORATIVE}}]%f"
+  zstyle ':vcs_info:*' actionformats "%F{${ZSH_THEME_COLOR_DECORATIVE}}(%F{${ZSH_THEME_COLOR_CONTENT}}%b%F{${ZSH_THEME_COLOR_DECORATIVE}}%f %F{${ZSH_THEME_COLOR_DECORATIVE}}[%F{${ZSH_THEME_COLOR_CONTENT}}%c%u%m%F{${ZSH_THEME_COLOR_DECORATIVE}}]%f"
+
+  vcs_info
+}
+
 setopt prompt_subst
-PROMPT='%F{240}$(toon)%f %F{255}%~%f ${vcs_info_msg_0_}
-%F{245}>%f '
+PROMPT='%F{$ZSH_THEME_COLOR_DECORATIVE}$(toon)%f %F{$ZSH_THEME_COLOR_PATH}%~%f ${vcs_info_msg_0_}
+%F{$ZSH_THEME_COLOR_PROMPT}>%f '
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd theme_precmd

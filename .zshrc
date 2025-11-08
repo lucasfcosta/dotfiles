@@ -55,6 +55,25 @@ bindkey '^R' history-incremental-search-backward
 # ===============================
 # Theme / Prompt configuration
 # ===============================
+# Initialize theme symlinks if they don't exist (default to light theme)
+theme_state_file="${XDG_CONFIG_HOME:-$HOME/.config}/theme-mode"
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# Determine which theme to use
+if [ -f "$theme_state_file" ]; then
+  theme_mode=$(cat "$theme_state_file")
+else
+  theme_mode="light"  # Default to light theme
+fi
+
+# Create symlinks if they don't exist
+[ ! -L "$config_dir/alacritty/colors-active.toml" ] && ln -sf "$config_dir/alacritty/colors-$theme_mode.toml" "$config_dir/alacritty/colors-active.toml"
+[ ! -L "$config_dir/zsh/theme-active.zsh" ] && ln -sf "$config_dir/zsh/theme-$theme_mode.zsh" "$config_dir/zsh/theme-active.zsh"
+[ ! -L "$config_dir/tmux/theme-active.conf" ] && ln -sf "$config_dir/tmux/theme-$theme_mode.conf" "$config_dir/tmux/theme-active.conf"
+
+# Load theme colors (theme-active.zsh is a symlink to theme-dark.zsh or theme-light.zsh)
+[ -f "$config_dir/zsh/theme-active.zsh" ] && source "$config_dir/zsh/theme-active.zsh"
+
 # Load the main Zsh theme configuration from an external file.
 # Uses XDG_CONFIG_HOME if set, otherwise defaults to ~/.config/zsh/main.zsh-theme.
 # This keeps theme settings separate from .zshrc for cleaner organization,

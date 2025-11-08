@@ -13,3 +13,6 @@ alias reload="exec ${SHELL} -l"
 
 # Git log with file changes and line statistics
 alias glg="git log --stat"
+
+# Load hackermode theme switcher
+source ~/.config/zsh/hackermode.zsh

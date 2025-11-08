@@ -20,3 +20,28 @@ au("VimResized", {
     vim.cmd("tabdo wincmd =")
   end,
 })
+
+-- Auto-reload colorscheme when theme file changes
+local theme_helper = require("config.theme")
+local last_theme = nil
+
+local function check_theme()
+  local theme = theme_helper.read_theme()
+
+  if theme ~= last_theme then
+    last_theme = theme
+    pcall(function()
+      theme_helper.apply_theme(theme)
+    end)
+  end
+end
+
+-- Check theme on these events
+au({ "FocusGained", "BufEnter" }, {
+  group = ui,
+  callback = check_theme,
+})
+
+-- Also check theme periodically (every 1 second)
+local timer = vim.loop.new_timer()
+timer:start(1000, 1000, vim.schedule_wrap(check_theme))
