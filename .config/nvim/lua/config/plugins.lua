@@ -146,14 +146,19 @@ require("lazy").setup({
   -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim"
+    },
     cmd = "Telescope",
+
+
     keys = {
       -- I use mostly <leader>ff to find files and <leader>fg to find a string
       -- but finding buffers with <leader>fb and reading vim's help with
       -- <leader>fh are also useful.
       { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
-      { "<leader>fg", function() require("telescope.builtin").live_grep() end,  desc = "Live grep" },
+      { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live grep (with args)" },
       { "<leader>fb", function() require("telescope.builtin").buffers() end,    desc = "Buffers" },
       { "<leader>fh", function() require("telescope.builtin").help_tags() end,  desc = "Help tags" },
     },
