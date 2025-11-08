@@ -22,3 +22,7 @@ map("v", "<Up>",    "<nop>", opts)
 map("v", "<Down>",  "<nop>", opts)
 map("v", "<Left>",  "<nop>", opts)
 map("v", "<Right>", "<nop>", opts)
+
+-- Navigate through quickfix more quickly
+map("n", "<leader>qn", "<cmd>cnext<CR>", { desc = "Quickfix next" })
+map("n", "<leader>qp", "<cmd>cprev<CR>", { desc = "Quickfix prev" })
