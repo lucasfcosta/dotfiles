@@ -49,3 +49,6 @@ vim.opt.listchars = {
   precedes = "❮"
 }
 vim.opt.endofline = false
+
+-- Disable line wrapping by default (equivalent to :nowrap)
+vim.opt.wrap = false
