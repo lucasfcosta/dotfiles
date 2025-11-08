@@ -280,6 +280,17 @@ require("lazy").setup({
           accept = "<Tab>",
         },
       },
+      filetypes = {
+        yaml = true,
+        markdown = true,
+        help = true,
+        gitcommit = true,
+        gitrebase = true,
+        hgcommit = true,
+        svn = true,
+        cvs = false,
+        ["."] = true,
+      },
       panel = { enabled = false },
     },
     config = function(_, opts)
