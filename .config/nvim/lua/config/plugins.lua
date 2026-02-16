@@ -244,6 +244,7 @@ require("lazy").setup({
         float = {
           border = border,
           max_width = max_width,
+          max_height = 20,
         },
       })
 
@@ -268,7 +269,7 @@ require("lazy").setup({
 
           -- Diagnostics: float + navigation + loclist
           map("n", "<leader>e", function()
-            vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border, max_width = max_width })
+            vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border, max_width = max_width, max_height = 20 })
           end, "Diag: Show details (float)")
 
           -- Navigating diagnostics
