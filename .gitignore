@@ -6,5 +6,7 @@
 .config/zsh/theme-active.zsh
 .config/tmux/theme-active.conf
 
-# Claude code stuff
-.claude
+# Claude code stuff (allow config, ignore runtime state)
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
