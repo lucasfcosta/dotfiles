@@ -205,6 +205,20 @@ require("lazy").setup({
     end,
   },
 
+  -- Git worktree management
+  {
+    "ThePrimeagen/git-worktree.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("git-worktree").setup()
+      require("telescope").load_extension("git_worktree")
+    end,
+    keys = {
+      { "<leader>gw", function() require("telescope").extensions.git_worktree.git_worktrees() end, desc = "Git: Switch worktree" },
+      { "<leader>gW", function() require("telescope").extensions.git_worktree.create_git_worktree() end, desc = "Git: Create worktree" },
+    },
+  },
+
   -- Treesitter for syntax highlighting and code parsing
   {
     "nvim-treesitter/nvim-treesitter",
