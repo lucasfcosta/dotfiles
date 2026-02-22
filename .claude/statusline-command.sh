@@ -29,16 +29,4 @@ else
   ctx_str="${DIM}[—%]${RESET}"
 fi
 
-# PR number for the current branch
-pr=$(gh pr view --json number --jq '.number' 2>/dev/null)
-if [ -n "$pr" ]; then
-  pr_str="${DIM}#${pr}${RESET}"
-else
-  pr_str=""
-fi
-
-if [ -n "$pr_str" ]; then
-  printf "%s" "${DIM}${worktree_name}${RESET}${SEP}${pr_str} ${ctx_str}"
-else
-  printf "%s" "${DIM}${worktree_name}${RESET} ${ctx_str}"
-fi
+printf "%s" "${DIM}${worktree_name}${RESET} ${ctx_str}"
