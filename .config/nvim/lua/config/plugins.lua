@@ -214,8 +214,8 @@ require("lazy").setup({
       require("telescope").load_extension("git_worktree")
     end,
     keys = {
-      { "<leader>gw", function() require("telescope").extensions.git_worktree.git_worktrees() end, desc = "Git: Switch worktree" },
-      { "<leader>gW", function() require("telescope").extensions.git_worktree.create_git_worktree() end, desc = "Git: Create worktree" },
+      { "<leader>fw", function() require("telescope").extensions.git_worktree.git_worktrees() end, desc = "Git: Switch worktree" },
+      { "<leader>fW", function() require("telescope").extensions.git_worktree.create_git_worktree() end, desc = "Git: Create worktree" },
     },
   },
 
