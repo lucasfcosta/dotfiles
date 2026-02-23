@@ -80,3 +80,9 @@ fi
 # making it easier to update or swap themes without editing core shell config.
 theme_file="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/main.zsh-theme"
 [ -f "$theme_file" ] && source "$theme_file"
+
+export PNPM_HOME="/Users/lucasfcosta/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
