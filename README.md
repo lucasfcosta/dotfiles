@@ -1,10 +1,26 @@
 # dotfiles - [Lucas F. Costa](https://lucasfcosta.com)
 
-The best dotfiles in the entire universe.
+My macOS terminal setup, kept deliberately small.
 
-![my terminal using the dotfiles in this repo](./terminal-demo.png)
 
-These dotfiles target macOS. On other platforms you'll need to adapt `programs.sh`.
+## Philosophy
+
+These dotfiles started where most dotfiles start: a junk drawer of every plugin, alias, and theme I'd ever read a blog post about. The repo has gotten smaller every year since. What's left is what survived contact with daily use — the rest got cut, usually quietly.
+
+If a tool needs three pages of config before it earns its keep, I reach for a different tool. If an alias I added six months ago hasn't burned itself into muscle memory, it goes. Dotfiles aren't a software collection — they're the handful of things I do every day, made frictionless and then gotten out of the way.
+
+
+## What's included
+
+* **zsh** — `.zshrc`, aliases, a hand-rolled prompt, and a light/dark theme switcher (`hackermode.zsh`)
+* **nvim** — `.config/nvim/`, fully Lua-based with `lazy.nvim`
+* **tmux** — `.config/tmux/tmux.conf` with matching light/dark theme files
+* **alacritty** — `.config/alacritty/alacritty.toml` with light/dark color presets
+* **git** — `.gitconfig`
+* **claude code** — `.claude/` (settings, statusline, `CLAUDE.md`)
+* **macOS defaults** — `.macos` (Finder, Dock, keyboard, etc.)
+* **`programs.sh`** — installs Homebrew, the apps above, Fira Code Nerd Font, Node via nvm, and Claude Code
+* **`install.sh`** — `rsync`s everything into your home directory
 
 
 ## Quickstart
@@ -17,32 +33,6 @@ $ ./.macos        # (optional) apply my macOS system defaults
 ```
 
 Then restart your terminal.
-
-
-## What's in here
-
-### `programs.sh`
-
-Installs everything I rely on via Homebrew: Alacritty, Neovim, tmux, ripgrep, nvm + Node, Fira Code Nerd Font, Docker, Chrome, and Claude Code (plus a few official Claude plugins).
-
-It bootstraps Homebrew itself if you don't already have it.
-
-### `install.sh`
-
-`rsync`s the dotfiles in this repo into your home directory. Run it again any time you pull new changes.
-
-### `.macos`
-
-My preferred macOS system defaults (Finder, Dock, key repeat, etc.). Worth at least skimming before running.
-
-### Configs
-
-* **zsh** — `.zshrc` plus `.config/zsh/` (aliases, prompt, light/dark theme switcher in `hackermode.zsh`)
-* **nvim** — `.config/nvim/`, fully Lua-based (`lazy.nvim` for plugins)
-* **tmux** — `.config/tmux/tmux.conf` with light/dark theme files
-* **alacritty** — `.config/alacritty/alacritty.toml` with light/dark color presets
-* **git** — `.gitconfig`
-* **claude code** — `.claude/` (settings, statusline, `CLAUDE.md`)
 
 
 ## Things you still have to do manually
