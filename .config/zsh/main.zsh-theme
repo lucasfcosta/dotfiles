@@ -22,6 +22,10 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-simple-status
 
 function toon { echo -n "∂" }
 
+function aws_prompt_info {
+  [[ -n "$AWS_PROFILE" ]] && echo " %F{208}aws:$AWS_PROFILE%f"
+}
+
 theme_precmd() {
   # Reload theme colors dynamically from active theme file
   source ~/.config/zsh/theme-active.zsh
@@ -30,13 +34,13 @@ theme_precmd() {
   zstyle ':vcs_info:*' stagedstr   "%F{${ZSH_THEME_COLOR_CONTENT}}+%f"
   zstyle ':vcs_info:*' unstagedstr "%F{${ZSH_THEME_COLOR_CONTENT}}*%f"
   zstyle ':vcs_info:*' formats       "%F{${ZSH_THEME_COLOR_DECORATIVE}}<%F{${ZSH_THEME_COLOR_CONTENT}}%b%F{${ZSH_THEME_COLOR_DECORATIVE}}>%f %F{${ZSH_THEME_COLOR_DECORATIVE}}[%F{${ZSH_THEME_COLOR_CONTENT}}%c%u%m%F{${ZSH_THEME_COLOR_DECORATIVE}}]%f"
-  zstyle ':vcs_info:*' actionformats "%F{${ZSH_THEME_COLOR_DECORATIVE}}(%F{${ZSH_THEME_COLOR_CONTENT}}%b%F{${ZSH_THEME_COLOR_DECORATIVE}}%f %F{${ZSH_THEME_COLOR_DECORATIVE}}[%F{${ZSH_THEME_COLOR_CONTENT}}%c%u%m%F{${ZSH_THEME_COLOR_DECORATIVE}}]%f"
+  zstyle ':vcs_info:*' actionformats "%F{${ZSH_THEME_COLOR_DECORATIVE}}(%F{${ZSH_THEME_COLOR_CONTENT}}%b%F{${ZSH_THEME_COLOR_DECORATIVE}}|%F{${ZSH_THEME_COLOR_CONTENT}}%a%F{${ZSH_THEME_COLOR_DECORATIVE}})%f %F{${ZSH_THEME_COLOR_DECORATIVE}}[%F{${ZSH_THEME_COLOR_CONTENT}}%c%u%m%F{${ZSH_THEME_COLOR_DECORATIVE}}]%f"
 
   vcs_info
 }
 
 setopt prompt_subst
-PROMPT='%F{$ZSH_THEME_COLOR_DECORATIVE}$(toon)%f %F{$ZSH_THEME_COLOR_PATH}%~%f ${vcs_info_msg_0_}
+PROMPT='%F{$ZSH_THEME_COLOR_DECORATIVE}$(toon)%f %F{$ZSH_THEME_COLOR_PATH}%~%f ${vcs_info_msg_0_}$(aws_prompt_info)
 %F{$ZSH_THEME_COLOR_PROMPT}>%f '
 
 autoload -U add-zsh-hook
