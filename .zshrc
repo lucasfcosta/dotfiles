@@ -1,84 +1,88 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# ===============================
+# History configuration
+# ===============================
+# Increase the default in-memory history size (zsh defaults to ~30 commands)
+# and set the same number for the saved history so it persists between sessions.
+# Store history in ~/.zsh_history for consistency.
+# Ignore consecutive duplicate commands to reduce clutter.
+# Share history in real-time across all running zsh sessions.
+# Tip: Raise HISTSIZE/SAVEHIST for larger history (e.g., 50000+).
+# Remove SHARE_HISTORY if you prefer separate history per terminal.
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS
+setopt SHARE_HISTORY
 
-# This is a workaround for having a system node and NVM node
-PATH="/usr/local/bin:$(getconf PATH)"
 
-# Use gnu-sed instead of MacOS's sed
-PATH="/usr/local/opt/sed/libexec/gnubin:$PATH"
+# ===============================
+# Completion system initialization
+# ===============================
+# Enable zsh's modern (compinit) completion system:
+# - autoload -Uz compinit: makes the compinit function available
+# - compinit: scans $fpath for completion scripts (e.g., _git, _kubectl)
+#   and initializes programmable, context-aware completions.
+# Without this, zsh falls back to the old, limited compctl system.
+autoload -Uz compinit
+compinit
 
-GOPATH="$HOME/go"
-GOROOT="/usr/local/opt/go/libexec"
-GOBIN="$GOPATH/bin"
-PATH="$PATH:$GOPATH"
-PATH="$PATH:$GOROOT/bin"
-PATH="$PATH:$GOBIN"
 
-# Add brew to path
-export PATH=/opt/homebrew/bin:$PATH
+# ===============================
+# Shell environment configuration
+# ===============================
+# Load shell environment settings (nvm, paths, etc.)
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shell-config.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shell-config.zsh"
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/${USER}/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+# ===============================
+# Aliases
+# ===============================
+# Load personal aliases from external file
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliases.zsh"
 
-# Disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
 
-# How often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# ===============================
+# Key bindings
+# ===============================
+# Enable Vi-style keybindings in Zsh:
+# - Normal mode (ESC) and Insert mode like in Vim.
+bindkey -v
 
-# Display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+# Map Ctrl+R to an incremental reverse search through history
+# (search results appear as you type, updating in real time).
+bindkey '^R' history-incremental-search-backward
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  z
-  git
-  osx
-  chucknorris # ¯\_(ツ)_/¯
-)
+# ===============================
+# Theme / Prompt configuration
+# ===============================
+# Initialize theme symlinks if they don't exist (default to light theme)
+theme_state_file="${XDG_CONFIG_HOME:-$HOME/.config}/theme-mode"
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Load aliases
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+# Determine which theme to use
+if [ -f "$theme_state_file" ]; then
+  theme_mode=$(cat "$theme_state_file")
+else
+  theme_mode="light"  # Default to light theme
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Create symlinks if they don't exist
+[ ! -L "$config_dir/alacritty/colors-active.toml" ] && ln -sf "$config_dir/alacritty/colors-$theme_mode.toml" "$config_dir/alacritty/colors-active.toml"
+[ ! -L "$config_dir/zsh/theme-active.zsh" ] && ln -sf "$config_dir/zsh/theme-$theme_mode.zsh" "$config_dir/zsh/theme-active.zsh"
+[ ! -L "$config_dir/tmux/theme-active.conf" ] && ln -sf "$config_dir/tmux/theme-$theme_mode.conf" "$config_dir/tmux/theme-active.conf"
 
-# Set Node's max heap size to 4096
-export NODE_OPTIONS=" --max_old_space_size=4096"
+# Load theme colors (theme-active.zsh is a symlink to theme-dark.zsh or theme-light.zsh)
+[ -f "$config_dir/zsh/theme-active.zsh" ] && source "$config_dir/zsh/theme-active.zsh"
 
-# Add cargo to the PATH
-source $HOME/.cargo/env
+# Load the main Zsh theme configuration from an external file.
+# Uses XDG_CONFIG_HOME if set, otherwise defaults to ~/.config/zsh/main.zsh-theme.
+# This keeps theme settings separate from .zshrc for cleaner organization,
+# making it easier to update or swap themes without editing core shell config.
+theme_file="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/main.zsh-theme"
+[ -f "$theme_file" ] && source "$theme_file"
 
-# Use nvim as the default editor
-export EDITOR=nvim
+export PNPM_HOME="/Users/lucasfcosta/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac

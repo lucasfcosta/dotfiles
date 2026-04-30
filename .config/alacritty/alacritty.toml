@@ -1,0 +1,30 @@
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[font]
+size = 16.0
+
+[font.normal]
+family = "FiraCode Nerd Font"
+
+[mouse]
+hide_when_typing = true
+
+[window]
+opacity = 1.0
+decorations = "none"
+dynamic_padding = false
+startup_mode = "Fullscreen"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 0
+y = 5
+
+[general]
+import = ["~/.config/alacritty/colors-active.toml"]
