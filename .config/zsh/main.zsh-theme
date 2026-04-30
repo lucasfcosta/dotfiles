@@ -23,7 +23,11 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-simple-status
 function toon { echo -n "∂" }
 
 function aws_prompt_info {
-  [[ -n "$AWS_PROFILE" ]] && echo " %F{208}aws:$AWS_PROFILE%f"
+  local profile="${AWS_PROFILE:-${AWS_DEFAULT_PROFILE}}"
+  if [[ -z "$profile" && -f "$HOME/.aws/config" ]]; then
+    profile="default"
+  fi
+  [[ -n "$profile" ]] && echo " %F{208}aws:$profile%f"
 }
 
 theme_precmd() {
