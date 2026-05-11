@@ -12,7 +12,6 @@
 # Coding best practices
 
 - Avoid excessive commenting. Code should be self-explanatory as much as possible. Use comments to explain why something is done, not what is being done.
-- Use context7 MCP to research library docs before web search.
 
 # Testing best practices
 
