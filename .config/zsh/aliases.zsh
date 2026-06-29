@@ -14,5 +14,8 @@ alias reload="exec ${SHELL} -l"
 # Git log with file changes and line statistics
 alias glg="git log --stat"
 
+# Rename the current tmux window
+alias trw="tmux rename-window"
+
 # Load hackermode theme switcher
 source ~/.config/zsh/hackermode.zsh
