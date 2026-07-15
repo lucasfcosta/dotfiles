@@ -21,11 +21,9 @@ au("VimResized", {
   end,
 })
 
--- Splitting a diff window (e.g. <C-w>v in a review) copies its window-local
--- diff/scrollbind/foldmethod options into the new split, tying it to the
--- review's scrolling and folds. Strip the inherited diff state from fresh
--- splits; plugins like diffview are unaffected since they enable diff mode
--- explicitly after creating their windows.
+-- Splits inherit window-local diff options (scrollbind, folds), making the
+-- new window scroll in lockstep with the diff it came from. Start splits
+-- clean; plugins that want diff mode (e.g. diffview) enable it explicitly.
 au("WinNew", {
   group = ui,
   callback = function()
