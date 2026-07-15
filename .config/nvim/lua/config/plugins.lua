@@ -277,11 +277,30 @@ require("lazy").setup({
 
           -- Hover & "goto"
           -- Close any hover float before jumping: its auto-close events are
-          -- local to the source buffer, so cross-window jumps orphan it
+          -- local to the source buffer, so cross-window jumps orphan it.
+          -- From a diff window (e.g. a review), jump in a new tab instead of
+          -- reusing the window: diff/scrollbind/foldmethod are window-local,
+          -- so the target buffer would inherit them and wreck the review.
           map("n", "K",  vim.lsp.buf.hover,           "LSP: Hover docs")
           map("n", "gd", function()
             vim.cmd("silent! fclose!")
-            vim.lsp.buf.definition()
+            local in_diff = vim.wo.diff
+            vim.lsp.buf.definition({
+              on_list = function(list)
+                if #list.items == 0 then
+                  return vim.notify("No definition found", vim.log.levels.WARN)
+                end
+                if in_diff then
+                  vim.cmd("tab split")
+                  vim.cmd("diffoff")
+                end
+                vim.fn.setqflist({}, " ", list)
+                vim.cmd("silent cfirst")
+                if #list.items > 1 then
+                  vim.cmd("copen")
+                end
+              end,
+            })
           end, "LSP: Goto definition")
           map("n", "gD", vim.lsp.buf.declaration,     "LSP: Goto declaration")
           map("n", "gr", vim.lsp.buf.references,      "LSP: References")
