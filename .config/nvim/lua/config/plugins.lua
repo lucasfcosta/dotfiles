@@ -362,7 +362,10 @@ require("lazy").setup({
   },
 
   -- Auto-detect indent
-  { "tpope/vim-sleuth", event = { "BufReadPost", "BufNewFile" } }
+  { "tpope/vim-sleuth", event = { "BufReadPost", "BufNewFile" } },
+
+  -- Diff review with file panel; use --imply-local for LSP on the right side
+  { "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } }
 }, {
   ui = { border = "rounded" },
 })
