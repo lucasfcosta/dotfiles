@@ -276,8 +276,13 @@ require("lazy").setup({
           end
 
           -- Hover & "goto"
+          -- Close any hover float before jumping: its auto-close events are
+          -- local to the source buffer, so cross-window jumps orphan it
           map("n", "K",  vim.lsp.buf.hover,           "LSP: Hover docs")
-          map("n", "gd", vim.lsp.buf.definition,      "LSP: Goto definition")
+          map("n", "gd", function()
+            vim.cmd("silent! fclose!")
+            vim.lsp.buf.definition()
+          end, "LSP: Goto definition")
           map("n", "gD", vim.lsp.buf.declaration,     "LSP: Goto declaration")
           map("n", "gr", vim.lsp.buf.references,      "LSP: References")
           map("n", "gI", vim.lsp.buf.implementation,  "LSP: Implementations")
