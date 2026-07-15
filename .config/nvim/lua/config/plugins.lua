@@ -241,6 +241,12 @@ require("lazy").setup({
     dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
     opts = { ensure_installed = { "lua_ls", "ts_ls" } },
     config = function(_, opts)
+      -- Large monorepos with several apps open at once blow tsserver's
+      -- default ~4GB heap (SIGABRT, LSP goes silent); give it more room
+      vim.lsp.config("ts_ls", {
+        init_options = { maxTsServerMemory = 8192 },
+      })
+
       require("mason-lspconfig").setup(opts)
 
       -- Set consistent float appearance for LSP windows
