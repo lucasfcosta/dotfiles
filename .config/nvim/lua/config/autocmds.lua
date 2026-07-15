@@ -21,9 +21,8 @@ au("VimResized", {
   end,
 })
 
--- Splits inherit window-local diff options (scrollbind, folds), making the
--- new window scroll in lockstep with the diff it came from. Start splits
--- clean; plugins that want diff mode (e.g. diffview) enable it explicitly.
+-- New splits shouldn't inherit diff mode (scrollbind/folds) from the window
+-- they were split from; plugins enable it explicitly when they want it.
 au("WinNew", {
   group = ui,
   callback = function()
