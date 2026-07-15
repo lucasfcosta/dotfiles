@@ -21,6 +21,20 @@ au("VimResized", {
   end,
 })
 
+-- Splitting a diff window (e.g. <C-w>v in a review) copies its window-local
+-- diff/scrollbind/foldmethod options into the new split, tying it to the
+-- review's scrolling and folds. Strip the inherited diff state from fresh
+-- splits; plugins like diffview are unaffected since they enable diff mode
+-- explicitly after creating their windows.
+au("WinNew", {
+  group = ui,
+  callback = function()
+    if vim.wo.diff then
+      vim.cmd("diffoff")
+    end
+  end,
+})
+
 -- Auto-reload colorscheme when theme file changes
 local theme_helper = require("config.theme")
 local last_theme = nil
