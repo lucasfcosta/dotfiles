@@ -1,8 +1,32 @@
 {
+  "env": {
+    "EDITOR": "nvim"
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "claude-fable-5[1m]",
   "enabledPlugins": {
     "Notion@claude-plugins-official": true,
-    "linear@claude-plugins-official": true,
-    "context7@claude-plugins-official": true
+    "linear@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "tui": "default",
+  "theme": "dark-ansi",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff",
+            "async": true,
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
 }
