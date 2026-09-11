@@ -230,6 +230,13 @@ require("lazy").setup({
     },
   },
 
+  -- Neovim runtime types for lua_ls (hover docs on vim.* APIs)
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {},
+  },
+
   -- LSP & Mason
   { "neovim/nvim-lspconfig", lazy = true },
   {
