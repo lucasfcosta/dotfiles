@@ -273,6 +273,14 @@ require("lazy").setup({
         },
       })
 
+      -- Format rust files on save via rust-analyzer (rustfmt)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.rs",
+        callback = function()
+          vim.lsp.buf.format({ async = false })
+        end,
+      })
+
       -- Buffer-local LSP keymaps when a server attaches
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
