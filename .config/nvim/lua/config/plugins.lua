@@ -255,10 +255,21 @@ require("lazy").setup({
 
       -- Diagnostics float defaults
       vim.diagnostic.config({
+        update_in_insert = true,
         float = {
           border = border,
           max_width = max_width,
           max_height = 20,
+        },
+      })
+
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            -- More as-you-type diagnostics; clippy runs via cargo on save
+            diagnostics = { experimental = { enable = true } },
+            check = { command = "clippy" },
+          },
         },
       })
 
