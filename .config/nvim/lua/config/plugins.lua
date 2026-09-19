@@ -302,7 +302,14 @@ require("lazy").setup({
 
           -- Diagnostics: float + navigation + loclist
           map("n", "<leader>e", function()
-            vim.diagnostic.open_float(nil, { scope = "cursor", border = border, max_width = max_width, max_height = 20 })
+            -- Cursor scope when sitting on a diagnostic, whole line otherwise
+            local pos = vim.api.nvim_win_get_cursor(0)
+            local lnum, col = pos[1] - 1, pos[2]
+            local under_cursor = vim.tbl_filter(function(d)
+              return col >= d.col and col < math.max(d.end_col or 0, d.col + 1)
+            end, vim.diagnostic.get(0, { lnum = lnum }))
+            local scope = #under_cursor > 0 and "cursor" or "line"
+            vim.diagnostic.open_float(nil, { scope = scope, border = border, max_width = max_width, max_height = 20 })
           end, "Diag: Show details (float)")
 
           -- Navigating diagnostics
