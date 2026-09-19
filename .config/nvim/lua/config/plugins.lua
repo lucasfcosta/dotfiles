@@ -225,7 +225,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = { "lua", "javascript", "typescript" },
+      ensure_installed = { "lua", "javascript", "typescript", "rust" },
       highlight = { enable = true },
     },
   },
@@ -239,7 +239,7 @@ require("lazy").setup({
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
-    opts = { ensure_installed = { "lua_ls", "ts_ls" } },
+    opts = { ensure_installed = { "lua_ls", "ts_ls", "rust_analyzer" } },
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
 
