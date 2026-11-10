@@ -16,3 +16,6 @@ alias glg="git log --stat"
 
 # Load hackermode theme switcher
 source ~/.config/zsh/hackermode.zsh
+
+# Rename the current tmux window: trw <name>
+alias trw="tmux rename-window"
