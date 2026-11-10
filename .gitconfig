@@ -66,3 +66,9 @@
     rbs = rebase --skip
     #############
     aliases = !git config -l | grep alias | cut -c 7-
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
